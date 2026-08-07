@@ -30,39 +30,44 @@ window.addEventListener('load', () => {
 });
 
 // ============================================================
-// 2) แบคกราวด์ลอยขึ้น (หัวใจ หมู แมว โบว์ + แสงฟุ้งๆ สีชมพู)
+// 2) แบคกราวด์ลอยขึ้น (จัดเต็มหัวใจ หมู แมว ตามรีเควส!)
 // ============================================================
 const heartBg = document.getElementById('heart-bg');
-const bgEmojis = ['💗', '🐷', '🐱', '🎀', '✨', '🤍'];
+// เพิ่มอิโมจิที่ขอมาแบบครบๆ 💟💝💖💕
+const bgEmojis = ['💗', '🐷', '🐱', '🎀', '✨', '🤍', '💟', '💝', '💖', '💕'];
 
 function spawnBackgroundElement() {
   if (!heartBg) return;
 
-  const isGlowingDust = Math.random() > 0.40; // ออกเป็นแสงฟุ้งๆ 60%
   const el = document.createElement('div');
+  el.className = 'floating-heart';
 
-  if (isGlowingDust) {
-    el.className = 'glow-particle';
-    const size = 30 + Math.random() * 60; // ปรับแสงให้ดวงใหญ่ขึ้นจะได้เห็นชัด
-    el.style.width = size + 'px';
-    el.style.height = size + 'px';
-  } else {
-    el.className = 'floating-heart';
-    el.textContent = bgEmojis[Math.floor(Math.random() * bgEmojis.length)];
-    el.style.fontSize = (16 + Math.random() * 24) + 'px';
-  }
+  // สุ่มเลือกอิโมจิ
+  el.textContent = bgEmojis[Math.floor(Math.random() * bgEmojis.length)];
 
+  // สุ่มขนาดให้ใหญ่ขึ้น จะได้เห็นชัดๆ (20px - 40px)
+  const size = 20 + Math.random() * 20;
+  el.style.fontSize = size + 'px';
+
+  // สุ่มตำแหน่งแกน X
   el.style.left = Math.random() * 100 + 'vw';
-  const duration = 7 + Math.random() * 8;
+
+  // สุ่มความเร็วให้ลอยช้าๆ (6-12 วินาที)
+  const duration = 6 + Math.random() * 6;
   el.style.animationDuration = duration + 's';
-  el.style.opacity = Math.random() * 0.4 + 0.3;
+
+  // ปรับความจางให้เข้มขึ้นกว่าเดิม จะได้เห็นชัดๆ (0.4 - 0.8)
+  el.style.opacity = Math.random() * 0.4 + 0.4;
 
   heartBg.appendChild(el);
+
+  // ลบทิ้งเมื่อลอยพ้นจอ
   setTimeout(() => el.remove(), duration * 1000);
 }
 
-setInterval(spawnBackgroundElement, 600);
-for (let i = 0; i < 6; i++) setTimeout(spawnBackgroundElement, i * 250);
+// ให้ลอยออกมาถี่ขึ้น ทุกๆ 0.4 วินาที
+setInterval(spawnBackgroundElement, 400);
+for (let i = 0; i < 10; i++) setTimeout(spawnBackgroundElement, i * 200);
 
 // ============================================================
 // 3) Scroll reveal (fade + float up)
@@ -90,7 +95,7 @@ let isPlaying = false;
 
 function playMusic() {
   if (!isPlaying) {
-    music.volume = 0.10; // ปรับเสียงเหลือ 15% จะได้เบาๆ ไม่ตกใจ
+    music.volume = 0.15; // เสียง 15%
     music.play().then(() => {
       musicBtn.textContent = '⏸️';
       musicBtn.classList.add('playing');
@@ -111,7 +116,6 @@ musicBtn.addEventListener('click', (e) => {
   }
 });
 
-// แตะหน้าจอครั้งแรกให้เล่นเพลง
 document.body.addEventListener('click', playMusic, { once: true });
 document.body.addEventListener('touchstart', playMusic, { once: true });
 

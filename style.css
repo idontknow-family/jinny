@@ -51,31 +51,27 @@ body {
 
 .floating-heart {
   position: absolute;
-  bottom: -40px;
-  opacity: 0.55;
-  filter: blur(0.3px);
+  bottom: -60px;
+  /* เริ่มลอยจากใต้ขอบจอ */
+  pointer-events: none;
   animation-name: floatUp;
-  animation-timing-function: ease-in;
+  animation-timing-function: linear;
+  /* ให้ลอยขึ้นมาแบบสมูทๆ */
   animation-fill-mode: forwards;
+  z-index: 0;
 }
 
 @keyframes floatUp {
   0% {
     transform: translate(0, 0) rotate(0deg);
-    opacity: 0;
-  }
-
-  10% {
-    opacity: 0.55;
   }
 
   50% {
-    transform: translate(20px, -50vh) rotate(10deg);
+    transform: translate(30px, -50vh) rotate(15deg);
   }
 
   100% {
-    transform: translate(-15px, -105vh) rotate(-8deg);
-    opacity: 0;
+    transform: translate(-20px, -110vh) rotate(-15deg);
   }
 }
 
