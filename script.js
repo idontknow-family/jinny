@@ -90,7 +90,7 @@ let isPlaying = false;
 
 function playMusic() {
   if (!isPlaying) {
-    music.volume = 0.15; // ปรับเสียงเหลือ 15% จะได้เบาๆ ไม่ตกใจ
+    music.volume = 0.10; // ปรับเสียงเหลือ 15% จะได้เบาๆ ไม่ตกใจ
     music.play().then(() => {
       musicBtn.textContent = '⏸️';
       musicBtn.classList.add('playing');
