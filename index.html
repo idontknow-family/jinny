@@ -16,128 +16,192 @@
 
 <body>
 
-  <!-- แบคกราวด์หัวใจลอย (สร้างด้วย JS อัตโนมัติ ไม่ต้องแก้ตรงนี้) -->
+  <!-- ฉากหลังอิโมจิลอย -->
   <div id="heart-bg"></div>
 
   <!-- LOADING SCREEN -->
   <div id="loading">
-    <div class="load-heart">💕</div>
-    <div class="load-text">รอแปปนึง ตื่นเต้นๆๆ!!...</div>
+    <div class="load-heart">🐷</div>
+    <div class="load-text">พร้อมอ้ะยังง...</div>
     <div class="load-bar-track">
       <div class="load-bar-fill"></div>
     </div>
   </div>
 
-  <!-- ปุ่มเพลง มุมขวาล่าง -->
+  <!-- ปุ่มเปิด/ปิดเพลง มุมขวาล่าง -->
   <button id="music-toggle" aria-label="เปิด/ปิดเพลง">🎵</button>
-  <!-- ใส่ไฟล์เพลงที่ assets/music.mp3 แล้วลบ comment ด้านล่าง -->
   <audio id="bg-music" loop>
-    <source src="assets/PUN.mp3" type="audio/mpeg">
+    <source src="assets/music.mp3" type="audio/mpeg">
   </audio>
 
-  <!-- HERO -->
-  <section class="hero">
-    <div class="hero-tape"></div>
-    <p class="hero-eyebrow">💌 ของขวัญ จากหมู </p>
-    <h1>1 เดือน<br>ของเฮา</h1>
-    <p class="hero-sub">คบกันมาเดือนนึงแล้วหรอไวจังง เจอจินวันแรกตอน21เดือน3ยังจำได้อยู่เลยย
-      ยังมีรูปที่ถ่ายกันวันแรกจนถึงทุกวันนี้อยู่เลย เลื่อนลงไปดูด้วยกันเร็ววว 🎀
-    </p>
-    <div class="hero-scroll">เลื่อนลงมาสิ <span>↓</span></div>
-  </section>
-
-  <!-- QUIZ ขี้เล่น -->
-  <section class="quiz-section">
-    <h2>ตอบคำถามก่อน เราคบกันมาแล้วกี่เดือน? 🤔</h2>
-    <p class="quiz-hint">(คำตอบบางอันมันดื้ออ่ะ ลองเอาเมาส์ไปจิ้มดู...)</p>
-
-    <div class="quiz-buttons" id="quizContainer">
-      <button class="quiz-btn wrong" style="left:5%; top:10%;">4 เดือน</button>
-      <button class="quiz-btn wrong" style="left:60%; top:5%;">3 เดือน</button>
-      <button class="quiz-btn correct" id="correctBtn" style="left:38%; top:40%;">1 เดือน</button>
-      <button class="quiz-btn wrong" style="left:10%; top:65%;">2 เดือน</button>
-      <button class="quiz-btn wrong" style="left:65%; top:70%;">6 เดือน</button>
+  <!-- ================= 1. หน้าต้อนรับ (ปีศาจหมู) ================= -->
+  <section id="page-welcome" class="app-page active">
+    <div class="flower-bouquet" style="margin-top: 10vh;">
+      <span style="font-size: 8rem; display: block; animation: pulseSoft 2s infinite;">🐷</span>
     </div>
-
-    <p class="quiz-result" id="quizResult"></p>
+    <h2 style="font-size: 2rem; margin-top: 20px;">เอาไปเลย<br>ปีศาจหมูสำหรับคนน่ารัก</h2>
+    <br>
+    <button class="main-btn" onclick="goToPage('page-welcome', 'page-menu')">ไปต่อหยอกเล่นน 💖</button>
   </section>
 
-  <!-- SCRAPBOOK รูปคู่ -->
-  <section class="scrapbook">
+
+  <!-- ================= 2. หน้าเมนูหลัก (4 ปุ่ม) ================= -->
+  <section id="page-menu" class="app-page hidden-page">
+    <h2 style="margin-top: 5vh; margin-bottom: 30px;">เลือกเมนู 💌</h2>
+    <div class="menu-grid">
+
+      <!-- 1. นับเวลา -->
+      <button class="grid-btn" onclick="goToPage('page-menu', 'page-timer')">
+        <span class="menu-icon">🍒</span>
+        <span>เราคบกันมา<br>กี่เดือนแล้วนะ</span>
+      </button>
+
+      <!-- 2. ความทรงจำ -->
+      <button class="grid-btn" onclick="goToPage('page-menu', 'page-gallery')">
+        <span class="menu-icon">📷</span>
+        <span>ความทรงจำ<br>ของเรา</span>
+      </button>
+
+      <!-- 3. ควิซ -->
+      <button class="grid-btn" onclick="goToPage('page-menu', 'page-quiz'); startQuiz();">
+        <span class="menu-icon">🧁</span>
+        <span>จินรู้ใจหมู<br>แค่ไหน</span>
+      </button>
+
+      <!-- 4. จดหมาย -->
+      <button class="grid-btn" onclick="goToPage('page-menu', 'page-letter')">
+        <span class="menu-icon">🐰</span>
+        <span>จดหมาย<br>ให้จิน</span>
+      </button>
+
+    </div>
+  </section>
+
+
+  <!-- ================= 3. หน้านับเวลา ================= -->
+  <section id="page-timer" class="app-page hidden-page">
+    <div class="card-container">
+      <h3>ตั้งแต่จีบกันวันแรก 💖</h3>
+
+      <!-- ใส่วันที่เริ่มจีบกันตรงนี้ (ปี-เดือน-วันTเวลา) -->
+      <div id="love-timer" data-startdate="2026-03-21T00:00:00">
+        <div class="timer-main">
+          <span id="timer-days" class="number">0</span>
+          <span class="label">วัน</span>
+        </div>
+
+        <div class="timer-boxes">
+          <div class="time-box">
+            <span id="timer-hours">0</span>
+            <span>ชั่วโมง</span>
+          </div>
+          <div class="time-box">
+            <span id="timer-minutes">0</span>
+            <span>นาที</span>
+          </div>
+          <div class="time-box">
+            <span id="timer-seconds">0</span>
+            <span>วินาที</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <button class="back-btn" onclick="goToPage('page-timer', 'page-menu')">ย้อนกลับ</button>
+  </section>
+
+
+  <!-- ================= 4. หน้าความทรงจำ (แกลเลอรี่) ================= -->
+  <section id="page-gallery" class="app-page hidden-page">
     <h2>ภาพความทรงจำของเรา 📷</h2>
 
-    <div class="polaroid-grid">
-
+    <div class="polaroid-grid" style="margin-top: 20px;">
       <div class="polaroid">
-        <div class="tape"></div>
-        <img src="assets/1.png" class="polaroid-img" alt="">
+        <div class="tape"></div><img src="assets/1.png" class="polaroid-img" alt="">
         <p class="polaroid-caption">รูปแรกที่ถ่ายด้วยกันน</p>
       </div>
-
       <div class="polaroid">
-        <div class="tape"></div>
-        <img src="assets/2.png" class="polaroid-img" alt="">
+        <div class="tape"></div><img src="assets/2.png" class="polaroid-img" alt="">
         <p class="polaroid-caption">อันนี้ตอนเค้าเริ่มจีบจินน</p>
       </div>
-
       <div class="polaroid">
-        <div class="tape"></div>
-        <img src="assets/3.png" class="polaroid-img" alt="">
+        <div class="tape"></div><img src="assets/3.png" class="polaroid-img" alt="">
         <p class="polaroid-caption">พวกซิ่งวันสงกรานต์</p>
       </div>
-
       <div class="polaroid">
-        <div class="tape"></div>
-        <img src="assets/4.png" class="polaroid-img" alt="">
+        <div class="tape"></div><img src="assets/4.png" class="polaroid-img" alt="">
         <p class="polaroid-caption">นักสืบตัวน้อยย</p>
       </div>
-
       <div class="polaroid">
-        <div class="tape"></div>
-        <img src="assets/5.png" class="polaroid-img" alt="">
+        <div class="tape"></div><img src="assets/5.png" class="polaroid-img" alt="">
         <p class="polaroid-caption">รูปนี้น่าฮักกก</p>
       </div>
-
       <div class="polaroid">
-        <div class="tape"></div>
-        <img src="assets/6.png" class="polaroid-img" alt="">
+        <div class="tape"></div><img src="assets/6.png" class="polaroid-img" alt="">
         <p class="polaroid-caption">ชอบรูปนี้ถ่ายกับลูกๆด้วยย</p>
+      </div>
+    </div>
+
+    <br><br>
+    <button class="back-btn" onclick="goToPage('page-gallery', 'page-menu')">ย้อนกลับ</button>
+  </section>
+
+
+  <!-- ================= 5. หน้าเกมควิซทายใจ ================= -->
+  <section id="page-quiz" class="app-page hidden-page">
+    <div class="card-container quiz-card">
+
+      <!-- ส่วนแสดงคำถาม -->
+      <div id="quiz-question-container">
+        <span class="quiz-step" id="quiz-step">ข้อ 1/5</span>
+        <h3 id="quiz-question" style="margin-bottom: 20px;">คำถามจะแสดงตรงนี้</h3>
+
+        <div class="quiz-choices" id="quiz-choices">
+          <!-- ปุ่มตัวเลือกจะถูกสร้างอัตโนมัติจาก JavaScript -->
+        </div>
+
+        <button id="quiz-next-btn" class="main-btn hidden-page"
+          style="margin-top: 20px; padding: 10px 20px; font-size: 1rem;" onclick="nextQuestion()">ข้อต่อไป ➡</button>
+      </div>
+
+      <!-- ส่วนสรุปคะแนน (ซ่อนไว้ก่อน) -->
+      <div id="quiz-result-container" class="hidden-page">
+        <h2>เย้! จบแล้วว 🎉</h2>
+        <div style="font-size: 4rem; margin: 20px 0;">🏆</div>
+        <h3>จินได้คะแนน <span id="quiz-score" style="color: var(--pink-deep); font-size: 2rem;">0</span> / 5</h3>
+        <p id="quiz-feedback-text" style="margin-top: 10px; color: var(--text-soft);"></p>
+        <br>
+        <button class="main-btn" onclick="goToPage('page-quiz', 'page-menu')">กลับหน้าเมนู</button>
       </div>
 
     </div>
+    <button id="quiz-back-btn" class="back-btn" onclick="goToPage('page-quiz', 'page-menu')">ย้อนกลับ</button>
   </section>
 
-  <!-- การ์ดจดหมายปิดท้าย -->
-  <section class="finale">
-    <p class="finale-eyebrow">เค้ามีอะไรจะบอกก...</p>
-    <div class="letter-card" id="letterCard">
+
+  <!-- ================= 6. หน้าจดหมาย ================= -->
+  <section id="page-letter" class="app-page hidden-page">
+    <div class="letter-card" id="letterCard" style="margin-top: 5vh;">
       <div class="letter-inner">
         <div class="letter-front">
           <div class="seal">💌</div>
-          <p>จิ้มเร็ววว</p>
+          <p>จิ้มเพื่อเปิดอ่าน 💖</p>
         </div>
         <div class="letter-back">
-          <p class="letter-title">สุขสันต์วันครบรอบนะค้าบ
-            <br>คนเก่งของเค้าา 🌷💕
+          <p class="letter-title">สุขสันต์วันครบรอบนะค้าบ<br>คนเก่งของเค้าา 🌷💕</p>
+          <p class="letter-body">ถึงมันจะเป็นแค่เดือนแรกแต่เดือนนี้เป็นทั้ง<br>วันครบแรกเดือนแรกของเราและวันเกิดเค้าเลย
           </p>
-          <p class="letter-body">ถึงมันจะเป็นแค่เดือนแรกแต่เดือนนี้เป็นทั้ง
-            <br>วันครบรอบเดือนแรกของเราและเดือนเกิดเค้าเลย
+          <p class="letter-body">ขอบคุณที่เข้ามาเติมเต็มในทุกสิ่งที่เค้าขาดหายไป<br>ขอบคุณที่คอยซัพพอร์ตเค้าในทุกๆเรื่อง
           </p>
-          <p class="letter-body">ขอบคุณที่เข้ามาเติมเต็มในทุกสิ่งที่เค้าขาดหายไป
-            <br>ขอบคุณที่คอยซัพพอร์ตเค้าในทุกๆเรื่อง
-          </p>
-          <p class="letter-body">ขอบคุณที่คอยอยู่เป็นกำลังใจ คอยปลุกไปเรียนน
-            <br>ไม่ทิ้งเค้าไปไหนถึงบางทีเค้าจะไม่น่ารักกับจินน
-          </p>
-          <p class="letter-sign">อยู่เป็นความสุขแบบนี้กันทุกๆวันเลยน่ะ
-            <br>รักจินมากๆค้าบ🌷💓
-          </p>
+          <p class="letter-body">ขอบคุณที่คอยอยู่เป็นกำลังใจ
+            คอยปลุกไปเรียนน<br>ไม่ทิ้งเค้าไปไหนถึงบางทีเค้าจะไม่น่ารักกับจินน</p>
+          <p class="letter-sign">อยู่เป็นความสุขแบบนี้กันทุกๆวันเลยน่ะ<br>รักมากๆค้าบ🌷💓</p>
         </div>
       </div>
     </div>
-  </section>
 
-  <footer>ถึงจะเล็กน้อยๆ 🤍 แต่อยากทำให้จิน</footer>
+    <br><br>
+    <button class="back-btn" onclick="goToPage('page-letter', 'page-menu')">ย้อนกลับ</button>
+  </section>
 
   <script src="script.js"></script>
 </body>
