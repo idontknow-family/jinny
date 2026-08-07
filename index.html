@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>1 เดือนของเรา 🤍</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Mali:wght@400;600;700&family=Kanit:wght@200;300;400&family=Itim&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- แบคกราวด์หัวใจลอย (สร้างด้วย JS อัตโนมัติ ไม่ต้องแก้ตรงนี้) -->
+<div id="heart-bg"></div>
+
+<!-- LOADING SCREEN -->
+<div id="loading">
+  <div class="load-heart">💗</div>
+  <div class="load-text">กำลังเตรียมความรัก...</div>
+  <div class="load-bar-track"><div class="load-bar-fill"></div></div>
+</div>
+
+<!-- ปุ่มเพลง มุมขวาล่าง -->
+<button id="music-toggle" aria-label="เปิด/ปิดเพลง">🎵</button>
+<!-- ใส่ไฟล์เพลงที่ assets/music.mp3 แล้วลบ comment ด้านล่าง -->
+<audio id="bg-music" loop>
+  <source src="assets/music.mp3" type="audio/mpeg">
+</audio>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-tape"></div>
+  <p class="hero-eyebrow">💌 ของขวัญเล็กๆ จากใจ</p>
+  <h1>1 เดือน<br>ของเรา</h1>
+  <p class="hero-sub">[แก้ตรงนี้] จากวันแรกที่คุยกันในเกม สู่วันนี้ที่กลายเป็นความทรงจำดีๆ เลื่อนลงไปดูด้วยกันนะ 🥹</p>
+  <div class="hero-scroll">เลื่อนลงมาสิ <span>↓</span></div>
+</section>
+
+<!-- QUIZ ขี้เล่น -->
+<section class="quiz-section">
+  <h2>เราคบกันมาแล้วกี่เดือน? 🤔</h2>
+  <p class="quiz-hint">(คำตอบบางอันขี้อาย เอาเมาส์ไปจ่อดูสิ...)</p>
+
+  <div class="quiz-buttons" id="quizContainer">
+    <button class="quiz-btn wrong" style="left:5%; top:10%;">4 เดือน</button>
+    <button class="quiz-btn wrong" style="left:60%; top:5%;">3 เดือน</button>
+    <button class="quiz-btn correct" id="correctBtn" style="left:38%; top:40%;">1 เดือน</button>
+    <button class="quiz-btn wrong" style="left:10%; top:65%;">2 เดือน</button>
+    <button class="quiz-btn wrong" style="left:65%; top:70%;">6 เดือน</button>
+  </div>
+
+  <p class="quiz-result" id="quizResult"></p>
+</section>
+
+<!-- SCRAPBOOK รูปคู่ -->
+<section class="scrapbook">
+  <h2>ภาพความทรงจำของเรา 📷</h2>
+
+  <div class="polaroid-grid">
+
+    <div class="polaroid">
+      <div class="tape"></div>
+      <!-- แทนที่บรรทัดล่างด้วย <img src="assets/1.jpg" class="polaroid-img" alt=""> -->
+      <div class="polaroid-placeholder">รูปที่ 1</div>
+      <p class="polaroid-caption">[แก้ตรงนี้] วันแรกที่เจอกัน</p>
+    </div>
+
+    <div class="polaroid">
+      <div class="tape"></div>
+      <div class="polaroid-placeholder">รูปที่ 2</div>
+      <p class="polaroid-caption">[แก้ตรงนี้] ตอนไปเที่ยวด้วยกันในเกม</p>
+    </div>
+
+    <div class="polaroid">
+      <div class="tape"></div>
+      <div class="polaroid-placeholder">รูปที่ 3</div>
+      <p class="polaroid-caption">[แก้ตรงนี้] โมเมนต์ฮาๆ</p>
+    </div>
+
+    <div class="polaroid">
+      <div class="tape"></div>
+      <div class="polaroid-placeholder">รูปที่ 4</div>
+      <p class="polaroid-caption">[แก้ตรงนี้] คู่กันหน้าบ้าน</p>
+    </div>
+
+    <div class="polaroid">
+      <div class="tape"></div>
+      <div class="polaroid-placeholder">รูปที่ 5</div>
+      <p class="polaroid-caption">[แก้ตรงนี้] วันที่บอกรัก</p>
+    </div>
+
+    <div class="polaroid">
+      <div class="tape"></div>
+      <div class="polaroid-placeholder">รูปที่ 6</div>
+      <p class="polaroid-caption">[แก้ตรงนี้] ปาร์ตี้เล็กๆ ของเรา</p>
+    </div>
+
+    <div class="polaroid">
+      <div class="tape"></div>
+      <div class="polaroid-placeholder">รูปที่ 7</div>
+      <p class="polaroid-caption">[แก้ตรงนี้] ถ่ายมุมนี้สวยสุด</p>
+    </div>
+
+    <div class="polaroid">
+      <div class="tape"></div>
+      <div class="polaroid-placeholder">รูปที่ 8</div>
+      <p class="polaroid-caption">[แก้ตรงนี้] ตอนนี้ ครบ 1 เดือนแล้ว 🎉</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- การ์ดจดหมายปิดท้าย -->
+<section class="finale">
+  <p class="finale-eyebrow">มีอะไรอยากบอก...</p>
+  <div class="letter-card" id="letterCard">
+    <div class="letter-inner">
+      <div class="letter-front">
+        <div class="seal">💌</div>
+        <p>แตะเพื่อเปิดจดหมาย</p>
+      </div>
+      <div class="letter-back">
+        <p class="letter-title">สุขสันต์ 1 เดือนนะ 🩷</p>
+        <p class="letter-body">[แก้ตรงนี้] ขอบคุณที่เจอกันในเกม แล้วทำให้ชีวิตจริงของฉันมีความสุขขึ้นทุกวัน รักนะ</p>
+        <p class="letter-sign">[แก้ตรงนี้] จาก... ด้วยรัก</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>ทำด้วยความรัก 🤍 [แก้ตรงนี้] ชื่อคุณ × ชื่อแฟน</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
