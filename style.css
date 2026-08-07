@@ -143,9 +143,11 @@ footer,
 .load-bar-fill {
   height: 100%;
   width: 0%;
+  /* เริ่มต้นที่ 0% */
   background: var(--pink-deep);
   border-radius: 999px;
-  animation: loadFill 2s ease forwards;
+  transition: width 0.3s ease;
+  /* ทำให้หลอดวิ่งสมูทๆ ตอนเปอร์เซ็นต์เพิ่ม */
 }
 
 @keyframes loadFill {

@@ -1,10 +1,50 @@
 // ============================================================
-// 1) LOADING SCREEN
+// 1) LOADING SCREEN (โหลดจริงๆ ตามจำนวนรูปภาพ)
 // ============================================================
-window.addEventListener('load', () => {
+const loadingScreen = document.getElementById('loading');
+const loadBarFill = document.querySelector('.load-bar-fill');
+
+// ดึงรูปภาพทั้งหมดในหน้าเว็บ
+const images = document.querySelectorAll('img');
+let loadedCount = 0;
+const totalImages = images.length;
+
+function hideLoadingScreen() {
   setTimeout(() => {
-    document.getElementById('loading').classList.add('hide');
-  }, 1900);
+    loadingScreen.classList.add('hide');
+  }, 600); // ดีเลย์นิดนึงให้แฟนเห็นตอนหลอดเต็ม 100% แล้วค่อยซ่อน
+}
+
+function incrementLoad() {
+  loadedCount++;
+  const percentage = (loadedCount / totalImages) * 100;
+  loadBarFill.style.width = percentage + '%'; // อัปเดตหลอดโหลดตามจริง
+
+  if (loadedCount >= totalImages) {
+    hideLoadingScreen();
+  }
+}
+
+if (totalImages === 0) {
+  // ถ้าไม่มีรูปเลย
+  loadBarFill.style.width = '100%';
+  window.addEventListener('load', hideLoadingScreen);
+} else {
+  // ตรวจสอบรูปภาพทีละรูป
+  images.forEach((img) => {
+    if (img.complete) {
+      incrementLoad(); // ถ้ารูปโหลดเสร็จแล้ว (เช่น โหลดจากแคช)
+    } else {
+      img.addEventListener('load', incrementLoad);
+      img.addEventListener('error', incrementLoad); // กันบั๊กรูปพังแล้วโหลดค้าง
+    }
+  });
+}
+
+// เผื่อเหนียว: ถ้าเว็บโหลดเสร็จสมบูรณ์แล้ว ให้บังคับหลอดเต็มและซ่อนทันที
+window.addEventListener('load', () => {
+  loadBarFill.style.width = '100%';
+  hideLoadingScreen();
 });
 
 // ============================================================
