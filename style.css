@@ -50,15 +50,15 @@ body {
 }
 
 .floating-heart {
-  position: absolute;
+  position: fixed;
+  /* เปลี่ยนจาก absolute เป็น fixed เพื่อให้อยู่ติดจอ */
   bottom: -60px;
-  /* เริ่มลอยจากใต้ขอบจอ */
   pointer-events: none;
   animation-name: floatUp;
   animation-timing-function: linear;
-  /* ให้ลอยขึ้นมาแบบสมูทๆ */
   animation-fill-mode: forwards;
-  z-index: 0;
+  z-index: 10;
+  /* เพิ่ม z-index ให้อยู่เหนือพื้นหลังแน่นอน! */
 }
 
 @keyframes floatUp {
@@ -563,14 +563,15 @@ footer {
 
 /* ---------- เอฟเฟคแสงฟุ้งๆ ละมุนๆ (Bokeh) สีชมพู ---------- */
 .glow-particle {
-  position: absolute;
+  position: fixed;
+  /* เปลี่ยนเป็น fixed ด้วย */
   border-radius: 50%;
-  /* เปลี่ยนสีแสงเป็นชมพูอ่อนๆ จะได้ตัดกับพื้นหลังสีครีม */
   background: radial-gradient(circle, rgba(255, 143, 174, 0.45) 0%, rgba(255, 143, 174, 0) 70%);
   pointer-events: none;
   bottom: -50px;
   animation: floatUpGlow linear forwards;
-  z-index: 0;
+  z-index: 10;
+  /* เพิ่ม z-index ให้อยู่เหนือพื้นหลังแน่นอน! */
 }
 
 @keyframes floatUpGlow {
