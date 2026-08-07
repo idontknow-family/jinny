@@ -48,30 +48,38 @@ window.addEventListener('load', () => {
 });
 
 // ============================================================
-// 2) แบคกราวด์ลอยขึ้นเบาๆ (หัวใจ หมู แมว โบว์)
+// 2) แบคกราวด์ลอยขึ้นเบาๆ (หัวใจ หมู แมว โบว์ + แสงฟุ้งๆ)
 // ============================================================
 const heartBg = document.getElementById('heart-bg');
-const bgEmojis = ['💗', '🐷', '🐱', '🎀', '✨', '🤍']; // เพิ่มน้องหมู น้องแมว ตามรีเควส
+const bgEmojis = ['💗', '🐷', '🐱', '🎀', '✨', '🤍'];
 
 function spawnBackgroundElement() {
   if (!heartBg) return;
+
+  // สุ่มว่ารอบนี้จะเป็นอีโมจิ (45%) หรือเป็นแสงละมุนๆ (55%)
+  const isGlowingDust = Math.random() > 0.45;
   const el = document.createElement('div');
-  el.className = 'floating-heart';
-  el.textContent = bgEmojis[Math.floor(Math.random() * bgEmojis.length)];
+
+  if (isGlowingDust) {
+    el.className = 'glow-particle';
+    const size = 15 + Math.random() * 40;
+    el.style.width = size + 'px';
+    el.style.height = size + 'px';
+  } else {
+    el.className = 'floating-heart';
+    el.textContent = bgEmojis[Math.floor(Math.random() * bgEmojis.length)];
+    el.style.fontSize = (16 + Math.random() * 20) + 'px';
+  }
 
   // สุ่มตำแหน่งแกน X
   el.style.left = Math.random() * 100 + 'vw';
 
-  // สุ่มขนาดให้ดูมีมิติ (เล็ก-ใหญ่สลับกัน)
-  const size = 16 + Math.random() * 20;
-  el.style.fontSize = size + 'px';
-
-  // สุ่มความเร็วให้ลอยช้าๆ นุ่มๆ (8-14 วินาที)
-  const duration = 8 + Math.random() * 6;
+  // สุ่มความเร็วให้ลอยช้าๆ นุ่มๆ (8-16 วินาที)
+  const duration = 8 + Math.random() * 8;
   el.style.animationDuration = duration + 's';
 
-  // ปรับความจางให้ฟุ้งๆ (opacity 0.15 - 0.45) ไม่กวนข้อความหลัก
-  el.style.opacity = Math.random() * 0.3 + 0.15;
+  // ปรับความจางให้ฟุ้งๆ (opacity 0.2 - 0.6) ไม่กวนข้อความหลัก
+  el.style.opacity = Math.random() * 0.4 + 0.2;
 
   heartBg.appendChild(el);
 
@@ -79,12 +87,11 @@ function spawnBackgroundElement() {
   setTimeout(() => el.remove(), duration * 1000);
 }
 
-setInterval(spawnBackgroundElement, 800);
-for (let i = 0; i < 5; i++) setTimeout(spawnBackgroundElement, i * 300);
+setInterval(spawnBackgroundElement, 600);
+for (let i = 0; i < 6; i++) setTimeout(spawnBackgroundElement, i * 250);
 
 // ============================================================
-// 3) Scroll reveal (fade + float up) สำหรับทุกอย่างที่มี class .reveal
-//    -> ใส่ class reveal ให้ section/การ์ดอัตโนมัติตรงนี้
+// 3) Scroll reveal (fade + float up)
 // ============================================================
 document.querySelectorAll('.polaroid, .quiz-section, .scrapbook h2, .finale')
   .forEach(el => el.classList.add('reveal'));
@@ -111,6 +118,7 @@ let isPlaying = false;
 // ฟังก์ชันสำหรับเล่นเพลง
 function playMusic() {
   if (!isPlaying) {
+    music.volume = 0.5; // ปรับเสียงระดับ 50% ให้ฟังสบายๆ ไม่ดังตกใจ
     music.play().then(() => {
       musicBtn.textContent = '⏸️';
       musicBtn.classList.add('playing');
@@ -121,11 +129,7 @@ function playMusic() {
   }
 }
 
-// แอบดักรอ! ถ้าแฟนคลิกหรือแตะหน้าจอตรงไหนก็ได้ครั้งแรก ให้เล่นเพลงเลย
-document.body.addEventListener('click', playMusic, { once: true });
-document.body.addEventListener('touchstart', playMusic, { once: true });
-
-// ฟังก์ชันสำหรับปุ่มกดเปิด-ปิด
+// ฟังก์ชันสำหรับปุ่มกดเปิด-ปิดเพลงโดยเฉพาะ
 musicBtn.addEventListener('click', (e) => {
   e.stopPropagation(); // กันไม่ให้ไปซ้ำกับการคลิกหน้าเว็บ
   if (!isPlaying) {
@@ -138,7 +142,7 @@ musicBtn.addEventListener('click', (e) => {
   }
 });
 
-// แอบดักรอ! ถ้าแฟนคลิกหรือแตะหน้าจอตรงไหนก็ได้ครั้งแรก ให้เล่นเพลงเลย
+// แอบดักรอ! ถ้าแฟนคลิกหรือแตะหน้าจอตรงไหนก็ได้ครั้งแรก ให้เล่นเพลงเลย (ใส่แค่รอบเดียว)
 document.body.addEventListener('click', playMusic, { once: true });
 document.body.addEventListener('touchstart', playMusic, { once: true });
 
@@ -174,7 +178,7 @@ if (canHover) {
     });
   });
 } else {
-  // มือถือ: แตะปุ่มผิด -> ปุ่มกระโดดหนีแทน (กันกดโดน)
+  // มือถือ: แตะปุ่มผิด -> ปุ่มกระโดดหนีแทน
   wrongButtons.forEach((btn) => {
     btn.addEventListener('touchstart', (e) => {
       e.preventDefault();
