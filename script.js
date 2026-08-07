@@ -30,10 +30,9 @@ window.addEventListener('load', () => {
 });
 
 // ============================================================
-// 2) แบคกราวด์ลอยขึ้น (จัดเต็มหัวใจ หมู แมว ตามรีเควส!)
+// 2) แบคกราวด์ลอยขึ้น (อิโมจิน่ารักๆ แบบชัวร์ 100%)
 // ============================================================
 const heartBg = document.getElementById('heart-bg');
-// เพิ่มอิโมจิที่ขอมาแบบครบๆ 💟💝💖💕
 const bgEmojis = ['💗', '🐷', '🐱', '🎀', '✨', '🤍', '💟', '💝', '💖', '💕'];
 
 function spawnBackgroundElement() {
@@ -41,23 +40,18 @@ function spawnBackgroundElement() {
 
   const el = document.createElement('div');
   el.className = 'floating-heart';
-
-  // สุ่มเลือกอิโมจิ
   el.textContent = bgEmojis[Math.floor(Math.random() * bgEmojis.length)];
 
-  // สุ่มขนาดให้ใหญ่ขึ้น จะได้เห็นชัดๆ (20px - 40px)
-  const size = 20 + Math.random() * 20;
+  // สุ่มตำแหน่งซ้าย-ขวา
+  el.style.left = Math.random() * 90 + 5 + '%';
+
+  // สุ่มขนาดให้ใหญ่สะใจ (24px - 40px)
+  const size = 24 + Math.random() * 16;
   el.style.fontSize = size + 'px';
 
-  // สุ่มตำแหน่งแกน X
-  el.style.left = Math.random() * 100 + 'vw';
-
-  // สุ่มความเร็วให้ลอยช้าๆ (6-12 วินาที)
-  const duration = 6 + Math.random() * 6;
+  // สุ่มความเร็ว (6-10 วิ)
+  const duration = 6 + Math.random() * 4;
   el.style.animationDuration = duration + 's';
-
-  // ปรับความจางให้เข้มขึ้นกว่าเดิม จะได้เห็นชัดๆ (0.4 - 0.8)
-  el.style.opacity = Math.random() * 0.4 + 0.4;
 
   heartBg.appendChild(el);
 
@@ -65,9 +59,8 @@ function spawnBackgroundElement() {
   setTimeout(() => el.remove(), duration * 1000);
 }
 
-// ให้ลอยออกมาถี่ขึ้น ทุกๆ 0.4 วินาที
-setInterval(spawnBackgroundElement, 400);
-for (let i = 0; i < 10; i++) setTimeout(spawnBackgroundElement, i * 200);
+// สร้างอิโมจิทุกๆ 0.5 วินาที
+setInterval(spawnBackgroundElement, 500);
 
 // ============================================================
 // 3) Scroll reveal (fade + float up)
