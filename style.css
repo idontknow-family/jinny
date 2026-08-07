@@ -1,7 +1,7 @@
 /* ==============================================================
    โทนสี & ฟอนต์ทั้งหมดกำหนดไว้ตรงนี้ อยากเปลี่ยนสีแก้ที่ :root พอ
    ============================================================== */
-:root{
+:root {
   --cream: #FFF8F1;
   --cream-deep: #FFF1E6;
   --pink: #FFC7D9;
@@ -16,10 +16,17 @@
   --font-hand: 'Itim', cursive;
 }
 
-*{ box-sizing: border-box; margin: 0; padding: 0; }
-html{ scroll-behavior: smooth; }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
 
-body{
+html {
+  scroll-behavior: smooth;
+}
+
+body {
   background: var(--cream);
   color: var(--text);
   font-family: var(--font-body);
@@ -28,16 +35,21 @@ body{
   position: relative;
 }
 
-::selection{ background: var(--pink); color: var(--white); }
+::selection {
+  background: var(--pink);
+  color: var(--white);
+}
 
 /* ---------- แบคกราวด์หัวใจลอย ---------- */
-#heart-bg{
-  position: fixed; inset: 0;
+#heart-bg {
+  position: fixed;
+  inset: 0;
   pointer-events: none;
   z-index: 0;
   overflow: hidden;
 }
-.floating-heart{
+
+.floating-heart {
   position: absolute;
   bottom: -40px;
   opacity: 0.55;
@@ -46,123 +58,233 @@ body{
   animation-timing-function: ease-in;
   animation-fill-mode: forwards;
 }
-@keyframes floatUp{
-  0%{ transform: translate(0, 0) rotate(0deg); opacity: 0; }
-  10%{ opacity: 0.55; }
-  50%{ transform: translate(20px, -50vh) rotate(10deg); }
-  100%{ transform: translate(-15px, -105vh) rotate(-8deg); opacity: 0; }
+
+@keyframes floatUp {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 0.55;
+  }
+
+  50% {
+    transform: translate(20px, -50vh) rotate(10deg);
+  }
+
+  100% {
+    transform: translate(-15px, -105vh) rotate(-8deg);
+    opacity: 0;
+  }
 }
 
 /* ทุก section ต้องอยู่เหนือแบคกราวด์หัวใจ */
-section, footer, #loading, #music-toggle{ position: relative; z-index: 1; }
+section,
+footer,
+#loading,
+#music-toggle {
+  position: relative;
+  z-index: 1;
+}
 
 /* ---------- LOADING SCREEN ---------- */
-#loading{
-  position: fixed; inset: 0; z-index: 999;
+#loading {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
   background: var(--cream);
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   gap: 16px;
   transition: opacity 0.9s ease, visibility 0.9s ease;
 }
-#loading.hide{ opacity: 0; visibility: hidden; pointer-events: none; }
-.load-heart{ font-size: 2.6rem; animation: pulseSoft 1.4s ease-in-out infinite; }
-@keyframes pulseSoft{ 0%,100%{ transform: scale(1); } 50%{ transform: scale(1.15); } }
-.load-text{ font-family: var(--font-display); color: var(--pink-deep); font-size: 1rem; }
-.load-bar-track{
-  width: min(240px, 60vw); height: 8px;
-  background: var(--pink); opacity: 0.3;
-  border-radius: 999px; overflow: hidden;
+
+#loading.hide {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
 }
-.load-bar-fill{
-  height: 100%; width: 0%;
+
+.load-heart {
+  font-size: 2.6rem;
+  animation: pulseSoft 1.4s ease-in-out infinite;
+}
+
+@keyframes pulseSoft {
+
+  0%,
+  100% {
+    transform: scale(1);
+  }
+
+  50% {
+    transform: scale(1.15);
+  }
+}
+
+.load-text {
+  font-family: var(--font-display);
+  color: var(--pink-deep);
+  font-size: 1rem;
+}
+
+.load-bar-track {
+  width: min(240px, 60vw);
+  height: 8px;
+  background: var(--pink);
+  opacity: 0.3;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.load-bar-fill {
+  height: 100%;
+  width: 0%;
   background: var(--pink-deep);
   border-radius: 999px;
   animation: loadFill 2s ease forwards;
 }
-@keyframes loadFill{ to{ width: 100%; } }
+
+@keyframes loadFill {
+  to {
+    width: 100%;
+  }
+}
 
 /* ---------- ปุ่มเพลง ---------- */
-#music-toggle{
-  position: fixed; bottom: 22px; right: 22px; z-index: 500;
-  width: 54px; height: 54px;
+#music-toggle {
+  position: fixed;
+  bottom: 22px;
+  right: 22px;
+  z-index: 500;
+  width: 54px;
+  height: 54px;
   border-radius: 50%;
   border: none;
   background: var(--white);
-  box-shadow: 0 8px 20px rgba(255,143,174,0.35);
+  box-shadow: 0 8px 20px rgba(255, 143, 174, 0.35);
   font-size: 1.3rem;
   cursor: pointer;
-  display: flex; align-items: center; justify-content: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   transition: transform 0.25s ease;
 }
-#music-toggle:hover{ transform: scale(1.08); }
-#music-toggle.playing{ animation: pulseSoft 1.6s ease-in-out infinite; }
+
+#music-toggle:hover {
+  transform: scale(1.08);
+}
+
+#music-toggle.playing {
+  animation: pulseSoft 1.6s ease-in-out infinite;
+}
 
 /* ---------- ทั่วไป: หัวข้อ section ---------- */
-h1, h2{ font-family: var(--font-display); color: var(--pink-deep); font-weight: 700; }
-h2{
+h1,
+h2 {
+  font-family: var(--font-display);
+  color: var(--pink-deep);
+  font-weight: 700;
+}
+
+h2 {
   text-align: center;
   font-size: clamp(1.5rem, 5vw, 2.1rem);
   margin-bottom: 10px;
 }
 
 /* fade + float reveal ตอน scroll */
-.reveal{
-  opacity: 0; transform: translateY(28px);
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
   transition: opacity 0.9s ease, transform 0.9s ease;
 }
-.reveal.visible{ opacity: 1; transform: translateY(0); }
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
 
 /* ---------- HERO ---------- */
-.hero{
+.hero {
   min-height: 100vh;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  text-align: center; padding: 40px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 40px 24px;
 }
-.hero-eyebrow{
+
+.hero-eyebrow {
   font-family: var(--font-hand);
   color: var(--pink-deep);
   font-size: 1rem;
   margin-bottom: 12px;
 }
-.hero h1{
+
+.hero h1 {
   font-size: clamp(2.6rem, 11vw, 4.6rem);
   line-height: 1.15;
 }
-.hero-sub{
+
+.hero-sub {
   margin-top: 20px;
   color: var(--text-soft);
   font-size: clamp(0.95rem, 2.6vw, 1.1rem);
   max-width: 460px;
   line-height: 1.7;
 }
-.hero-scroll{
+
+.hero-scroll {
   margin-top: 60px;
   font-family: var(--font-hand);
   color: var(--text-soft);
   font-size: 0.95rem;
-  animation: bob 2.2s ease-in-out infinite;
+  animation: bob 3.2s ease-in-out infinite;
 }
-.hero-scroll span{ display: block; font-size: 1.1rem; }
-@keyframes bob{ 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(8px); } }
+
+.hero-scroll span {
+  display: block;
+  font-size: 1.1rem;
+}
+
+@keyframes bob {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(4px);
+  }
+}
 
 /* ---------- QUIZ ---------- */
-.quiz-section{
+.quiz-section {
   padding: 10vh 20px;
   text-align: center;
 }
-.quiz-hint{
+
+.quiz-hint {
   font-family: var(--font-hand);
   color: var(--text-soft);
   margin-bottom: 30px;
   font-size: 0.95rem;
 }
-.quiz-buttons{
+
+.quiz-buttons {
   position: relative;
   max-width: 560px;
   height: 320px;
   margin: 0 auto;
 }
-.quiz-btn{
+
+.quiz-btn {
   position: absolute;
   padding: 14px 26px;
   border-radius: 999px;
@@ -170,22 +292,28 @@ h2{
   font-family: var(--font-body);
   font-size: 1rem;
   cursor: pointer;
-  transition: left 0.35s cubic-bezier(.2,.9,.25,1), top 0.35s cubic-bezier(.2,.9,.25,1), transform 0.2s ease;
-  box-shadow: 0 8px 18px rgba(107,84,87,0.12);
+  transition: left 0.35s cubic-bezier(.2, .9, .25, 1), top 0.35s cubic-bezier(.2, .9, .25, 1), transform 0.2s ease;
+  box-shadow: 0 8px 18px rgba(107, 84, 87, 0.12);
 }
-.quiz-btn.wrong{
+
+.quiz-btn.wrong {
   background: var(--white);
   color: var(--text-soft);
   border: 1.5px solid var(--pink);
 }
-.quiz-btn.correct{
+
+.quiz-btn.correct {
   background: var(--pink-deep);
   color: var(--white);
   font-weight: 600;
-  box-shadow: 0 10px 24px rgba(255,143,174,0.45);
+  box-shadow: 0 10px 24px rgba(255, 143, 174, 0.45);
 }
-.quiz-btn.correct:hover{ transform: scale(1.05); }
-.quiz-result{
+
+.quiz-btn.correct:hover {
+  transform: scale(1.05);
+}
+
+.quiz-result {
   margin-top: 26px;
   font-family: var(--font-display);
   font-size: 1.2rem;
@@ -194,50 +322,75 @@ h2{
 }
 
 /* ---------- SCRAPBOOK / POLAROID ---------- */
-.scrapbook{ padding: 10vh 20px 14vh; }
-.polaroid-grid{
+.scrapbook {
+  padding: 10vh 20px 14vh;
+}
+
+.polaroid-grid {
   max-width: 1000px;
   margin: 40px auto 0;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 40px 28px;
 }
-.polaroid{
+
+.polaroid {
   background: var(--white);
   padding: 14px 14px 26px;
   border-radius: 6px;
-  box-shadow: 0 14px 30px rgba(107,84,87,0.14);
+  box-shadow: 0 14px 30px rgba(107, 84, 87, 0.14);
   position: relative;
 }
-.polaroid:nth-child(odd){ transform: rotate(-3deg); }
-.polaroid:nth-child(even){ transform: rotate(2.5deg); }
-.polaroid:nth-child(3n){ transform: rotate(-1.5deg); }
-.polaroid:hover{ transform: rotate(0deg) scale(1.03); transition: transform 0.3s ease; }
 
-.tape{
-  position: absolute; top: -12px; left: 50%;
-  transform: translateX(-50%) rotate(-4deg);
-  width: 70px; height: 24px;
-  background: rgba(255,199,217,0.75);
-  border: 1px solid rgba(255,255,255,0.5);
+.polaroid:nth-child(odd) {
+  transform: rotate(-3deg);
 }
 
-.polaroid-img, .polaroid-placeholder{
+.polaroid:nth-child(even) {
+  transform: rotate(2.5deg);
+}
+
+.polaroid:nth-child(3n) {
+  transform: rotate(-1.5deg);
+}
+
+.polaroid:hover {
+  transform: rotate(0deg) scale(1.03);
+  transition: transform 0.3s ease;
+}
+
+.tape {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-4deg);
+  width: 70px;
+  height: 24px;
+  background: rgba(255, 199, 217, 0.75);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+}
+
+.polaroid-img,
+.polaroid-placeholder {
   width: 100%;
   aspect-ratio: 4/5;
   border-radius: 3px;
   object-fit: cover;
   display: block;
 }
-.polaroid-placeholder{
-  display: flex; align-items: center; justify-content: center;
+
+.polaroid-placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   background: var(--cream-deep);
   border: 2px dashed var(--pink);
   color: var(--text-soft);
   font-family: var(--font-hand);
   font-size: 0.95rem;
 }
-.polaroid-caption{
+
+.polaroid-caption {
   margin-top: 12px;
   font-family: var(--font-hand);
   color: var(--text);
@@ -246,61 +399,98 @@ h2{
 }
 
 /* ---------- FINALE / LETTER CARD ---------- */
-.finale{
+.finale {
   min-height: 90vh;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  padding: 40px 20px; text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
 }
-.finale-eyebrow{
+
+.finale-eyebrow {
   font-family: var(--font-hand);
   color: var(--text-soft);
   margin-bottom: 24px;
 }
-.letter-card{
+
+.letter-card {
   width: min(340px, 85vw);
   aspect-ratio: 3/4;
   perspective: 1400px;
   cursor: pointer;
 }
-.letter-inner{
-  position: relative; width: 100%; height: 100%;
+
+.letter-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
   transform-style: preserve-3d;
-  transition: transform 0.9s cubic-bezier(.2,.9,.25,1);
-}
-.letter-card.opened .letter-inner{ transform: rotateY(180deg); }
-.letter-front, .letter-back{
-  position: absolute; inset: 0;
-  backface-visibility: hidden;
-  border-radius: 20px;
-  display: flex; flex-direction: column; align-items: center; justify-content: center;
-  padding: 30px;
-}
-.letter-front{
-  background: var(--white);
-  border: 1.5px dashed var(--pink);
-  box-shadow: 0 16px 40px rgba(255,143,174,0.25);
-}
-.seal{ font-size: 2.6rem; margin-bottom: 14px; }
-.letter-front p{ color: var(--text-soft); font-family: var(--font-hand); }
-.letter-back{
-  background: linear-gradient(160deg, var(--pink), var(--peach));
-  transform: rotateY(180deg);
-  box-shadow: 0 16px 44px rgba(255,143,174,0.4);
-}
-.letter-title{
-  font-family: var(--font-display); font-weight: 700;
-  font-size: 1.4rem; color: var(--white);
-  margin-bottom: 16px;
-}
-.letter-body{
-  font-size: 0.95rem; line-height: 1.75; color: #6a3a48;
-  margin-bottom: 18px;
-}
-.letter-sign{
-  font-family: var(--font-hand); color: var(--white); font-size: 0.95rem;
+  transition: transform 0.9s cubic-bezier(.2, .9, .25, 1);
 }
 
-footer{
+.letter-card.opened .letter-inner {
+  transform: rotateY(180deg);
+}
+
+.letter-front,
+.letter-back {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px;
+}
+
+.letter-front {
+  background: var(--white);
+  border: 1.5px dashed var(--pink);
+  box-shadow: 0 16px 40px rgba(255, 143, 174, 0.25);
+}
+
+.seal {
+  font-size: 2.6rem;
+  margin-bottom: 14px;
+}
+
+.letter-front p {
+  color: var(--text-soft);
+  font-family: var(--font-hand);
+}
+
+.letter-back {
+  background: linear-gradient(160deg, var(--pink), var(--peach));
+  transform: rotateY(180deg);
+  box-shadow: 0 16px 44px rgba(255, 143, 174, 0.4);
+}
+
+.letter-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.4rem;
+  color: var(--white);
+  margin-bottom: 16px;
+}
+
+.letter-body {
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: #6a3a48;
+  margin-bottom: 18px;
+}
+
+.letter-sign {
+  font-family: var(--font-hand);
+  color: var(--white);
+  font-size: 0.95rem;
+}
+
+footer {
   text-align: center;
   padding: 30px 20px 50px;
   color: var(--text-soft);
@@ -309,21 +499,36 @@ footer{
 }
 
 /* confetti หัวใจตอนเฉลยถูก */
-.confetti-heart{
-  position: fixed; top: -10px;
+.confetti-heart {
+  position: fixed;
+  top: -10px;
   font-size: 1.1rem;
-  z-index: 998; pointer-events: none;
+  z-index: 998;
+  pointer-events: none;
   animation: fall linear forwards;
 }
-@keyframes fall{
-  to{ transform: translateY(105vh) rotate(360deg); opacity: 0; }
+
+@keyframes fall {
+  to {
+    transform: translateY(105vh) rotate(360deg);
+    opacity: 0;
+  }
 }
 
-@media (prefers-reduced-motion: reduce){
-  *{ animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
-@media (max-width: 480px){
-  .quiz-buttons{ height: 380px; }
-  .quiz-btn{ font-size: 0.9rem; padding: 12px 20px; }
+@media (max-width: 480px) {
+  .quiz-buttons {
+    height: 380px;
+  }
+
+  .quiz-btn {
+    font-size: 0.9rem;
+    padding: 12px 20px;
+  }
 }
