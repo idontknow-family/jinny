@@ -1,54 +1,36 @@
 // ============================================================
-// 1) LOADING SCREEN (โหลดจริงๆ ตามจำนวนรูปภาพ)
+// 1) LOADING SCREEN
 // ============================================================
 const loadingScreen = document.getElementById('loading');
 const loadBarFill = document.querySelector('.load-bar-fill');
-
-// ดึงรูปภาพทั้งหมดในหน้าเว็บ
 const images = document.querySelectorAll('img');
 let loadedCount = 0;
 const totalImages = images.length;
 
 function hideLoadingScreen() {
-  setTimeout(() => {
-    loadingScreen.classList.add('hide');
-  }, 600); // ดีเลย์นิดนึงให้แฟนเห็นตอนหลอดเต็ม 100% แล้วค่อยซ่อน
+  setTimeout(() => { loadingScreen.classList.add('hide'); }, 600);
 }
-
 function incrementLoad() {
   loadedCount++;
-  const percentage = (loadedCount / totalImages) * 100;
-  loadBarFill.style.width = percentage + '%'; // อัปเดตหลอดโหลดตามจริง
-
-  if (loadedCount >= totalImages) {
-    hideLoadingScreen();
-  }
+  loadBarFill.style.width = ((loadedCount / totalImages) * 100) + '%';
+  if (loadedCount >= totalImages) hideLoadingScreen();
 }
-
 if (totalImages === 0) {
-  // ถ้าไม่มีรูปเลย
   loadBarFill.style.width = '100%';
   window.addEventListener('load', hideLoadingScreen);
 } else {
-  // ตรวจสอบรูปภาพทีละรูป
   images.forEach((img) => {
-    if (img.complete) {
-      incrementLoad(); // ถ้ารูปโหลดเสร็จแล้ว (เช่น โหลดจากแคช)
-    } else {
-      img.addEventListener('load', incrementLoad);
-      img.addEventListener('error', incrementLoad); // กันบั๊กรูปพังแล้วโหลดค้าง
-    }
+    if (img.complete) incrementLoad();
+    else { img.addEventListener('load', incrementLoad); img.addEventListener('error', incrementLoad); }
   });
 }
-
-// เผื่อเหนียว: ถ้าเว็บโหลดเสร็จสมบูรณ์แล้ว ให้บังคับหลอดเต็มและซ่อนทันที
 window.addEventListener('load', () => {
   loadBarFill.style.width = '100%';
   hideLoadingScreen();
 });
 
 // ============================================================
-// 2) แบคกราวด์ลอยขึ้นเบาๆ (หัวใจ หมู แมว โบว์ + แสงฟุ้งๆ)
+// 2) แบคกราวด์ลอยขึ้น (หัวใจ หมู แมว โบว์ + แสงฟุ้งๆ สีชมพู)
 // ============================================================
 const heartBg = document.getElementById('heart-bg');
 const bgEmojis = ['💗', '🐷', '🐱', '🎀', '✨', '🤍'];
@@ -56,34 +38,26 @@ const bgEmojis = ['💗', '🐷', '🐱', '🎀', '✨', '🤍'];
 function spawnBackgroundElement() {
   if (!heartBg) return;
 
-  // สุ่มว่ารอบนี้จะเป็นอีโมจิ (45%) หรือเป็นแสงละมุนๆ (55%)
-  const isGlowingDust = Math.random() > 0.45;
+  const isGlowingDust = Math.random() > 0.40; // ออกเป็นแสงฟุ้งๆ 60%
   const el = document.createElement('div');
 
   if (isGlowingDust) {
     el.className = 'glow-particle';
-    const size = 15 + Math.random() * 40;
+    const size = 30 + Math.random() * 60; // ปรับแสงให้ดวงใหญ่ขึ้นจะได้เห็นชัด
     el.style.width = size + 'px';
     el.style.height = size + 'px';
   } else {
     el.className = 'floating-heart';
     el.textContent = bgEmojis[Math.floor(Math.random() * bgEmojis.length)];
-    el.style.fontSize = (16 + Math.random() * 20) + 'px';
+    el.style.fontSize = (16 + Math.random() * 24) + 'px';
   }
 
-  // สุ่มตำแหน่งแกน X
   el.style.left = Math.random() * 100 + 'vw';
-
-  // สุ่มความเร็วให้ลอยช้าๆ นุ่มๆ (8-16 วินาที)
-  const duration = 8 + Math.random() * 8;
+  const duration = 7 + Math.random() * 8;
   el.style.animationDuration = duration + 's';
-
-  // ปรับความจางให้ฟุ้งๆ (opacity 0.2 - 0.6) ไม่กวนข้อความหลัก
-  el.style.opacity = Math.random() * 0.4 + 0.2;
+  el.style.opacity = Math.random() * 0.4 + 0.3;
 
   heartBg.appendChild(el);
-
-  // ลบทิ้งเมื่อลอยพ้นจอเพื่อไม่ให้เว็บกระตุก
   setTimeout(() => el.remove(), duration * 1000);
 }
 
@@ -105,33 +79,28 @@ const io = new IntersectionObserver((items) => {
     }
   });
 }, { threshold: 0.15 });
-
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
 // ============================================================
-// 4) ปุ่มเปิด/ปิดเพลง & Autoplay เมื่อคลิกครั้งแรก
+// 4) ปุ่มเปิด/ปิดเพลง & Autoplay (เริ่มมาเบาๆ 15%)
 // ============================================================
 const musicBtn = document.getElementById('music-toggle');
 const music = document.getElementById('bg-music');
 let isPlaying = false;
 
-// ฟังก์ชันสำหรับเล่นเพลง
 function playMusic() {
   if (!isPlaying) {
-    music.volume = 0.5; // ปรับเสียงระดับ 50% ให้ฟังสบายๆ ไม่ดังตกใจ
+    music.volume = 0.15; // ปรับเสียงเหลือ 15% จะได้เบาๆ ไม่ตกใจ
     music.play().then(() => {
       musicBtn.textContent = '⏸️';
       musicBtn.classList.add('playing');
       isPlaying = true;
-    }).catch(() => {
-      // ป้องกันบั๊กกรณีเบราว์เซอร์ยังบล็อกอยู่
-    });
+    }).catch(() => { });
   }
 }
 
-// ฟังก์ชันสำหรับปุ่มกดเปิด-ปิดเพลงโดยเฉพาะ
 musicBtn.addEventListener('click', (e) => {
-  e.stopPropagation(); // กันไม่ให้ไปซ้ำกับการคลิกหน้าเว็บ
+  e.stopPropagation();
   if (!isPlaying) {
     playMusic();
   } else {
@@ -142,7 +111,7 @@ musicBtn.addEventListener('click', (e) => {
   }
 });
 
-// แอบดักรอ! ถ้าแฟนคลิกหรือแตะหน้าจอตรงไหนก็ได้ครั้งแรก ให้เล่นเพลงเลย (ใส่แค่รอบเดียว)
+// แตะหน้าจอครั้งแรกให้เล่นเพลง
 document.body.addEventListener('click', playMusic, { once: true });
 document.body.addEventListener('touchstart', playMusic, { once: true });
 
@@ -158,32 +127,21 @@ const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches
 function relocateButton(btn) {
   const containerRect = quizContainer.getBoundingClientRect();
   const btnRect = btn.getBoundingClientRect();
-  const maxX = Math.max(containerRect.width - btnRect.width, 0);
-  const maxY = Math.max(containerRect.height - btnRect.height, 0);
-  const newX = Math.random() * maxX;
-  const newY = Math.random() * maxY;
-  btn.style.left = newX + 'px';
-  btn.style.top = newY + 'px';
+  btn.style.left = (Math.random() * Math.max(containerRect.width - btnRect.width, 0)) + 'px';
+  btn.style.top = (Math.random() * Math.max(containerRect.height - btnRect.height, 0)) + 'px';
 }
 
 if (canHover) {
-  // เดสก์ท็อป: เมาส์เข้าใกล้ปุ่มผิด -> ปุ่มหนี
   quizContainer.addEventListener('mousemove', (e) => {
     wrongButtons.forEach((btn) => {
       const rect = btn.getBoundingClientRect();
-      const centerX = rect.left + rect.width / 2;
-      const centerY = rect.top + rect.height / 2;
-      const dist = Math.hypot(centerX - e.clientX, centerY - e.clientY);
+      const dist = Math.hypot((rect.left + rect.width / 2) - e.clientX, (rect.top + rect.height / 2) - e.clientY);
       if (dist < 95) relocateButton(btn);
     });
   });
 } else {
-  // มือถือ: แตะปุ่มผิด -> ปุ่มกระโดดหนีแทน
   wrongButtons.forEach((btn) => {
-    btn.addEventListener('touchstart', (e) => {
-      e.preventDefault();
-      relocateButton(btn);
-    });
+    btn.addEventListener('touchstart', (e) => { e.preventDefault(); relocateButton(btn); });
   });
 }
 
@@ -206,9 +164,6 @@ letterCard.addEventListener('click', () => {
   }
 });
 
-// ============================================================
-// confetti หัวใจ (ใช้ร่วมกันทั้ง quiz และการ์ดจดหมาย)
-// ============================================================
 function launchHeartConfetti() {
   const emojis = ['💗', '🩷', '💕', '✨'];
   for (let i = 0; i < 40; i++) {
