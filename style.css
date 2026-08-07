@@ -331,9 +331,10 @@ h2 {
   margin: 40px auto 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  /* บังคับ 3 คอลัมน์ 3 บน 3 ล่าง เป๊ะๆ */
   gap: 40px 20px;
   justify-items: center;
+  align-items: start;
+  /* เพิ่มบรรทัดนี้! ป้องกันไม่ให้กล่องยืดผิดรูป */
 }
 
 /* เพิ่มให้เรียงสวยๆ ในมือถือ */
@@ -355,6 +356,9 @@ h2 {
   border-radius: 6px;
   box-shadow: 0 14px 30px rgba(107, 84, 87, 0.14);
   position: relative;
+  width: 100%;
+  max-width: 240px;
+  /* เพิ่มบรรทัดนี้! บังคับความกว้างให้เท่ากันทุกรูป */
 }
 
 .polaroid:nth-child(odd) {
@@ -456,15 +460,17 @@ h2 {
 
 .letter-front,
 .letter-back {
-  position: absolute;
-  inset: 0;
-  backface-visibility: hidden;
-  border-radius: 20px;
+  background: linear-gradient(160deg, var(--pink), var(--peach));
+  transform: rotateY(180deg);
+  box-shadow: 0 16px 44px rgba(255, 143, 174, 0.4);
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 30px;
+  /* ดันข้อความให้อยู่ตรงกลางการ์ด */
+  text-align: center;
+  /* บังคับตัวหนังสืออยู่กึ่งกลาง */
 }
 
 .letter-front {
