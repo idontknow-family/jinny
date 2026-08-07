@@ -121,19 +121,6 @@ function playMusic() {
   }
 }
 
-// ฟังก์ชันสำหรับปุ่มกดเปิด-ปิด
-musicBtn.addEventListener('click', (e) => {
-  e.stopPropagation(); // กันไม่ให้ไปซ้ำกับการคลิกหน้าเว็บ
-  if (!isPlaying) {
-    playMusic();
-  } else {
-    music.pause();
-    musicBtn.textContent = '🎵';
-    musicBtn.classList.remove('playing');
-    isPlaying = false;
-  }
-});
-
 // แอบดักรอ! ถ้าแฟนคลิกหรือแตะหน้าจอตรงไหนก็ได้ครั้งแรก ให้เล่นเพลงเลย
 document.body.addEventListener('click', playMusic, { once: true });
 document.body.addEventListener('touchstart', playMusic, { once: true });
