@@ -437,13 +437,10 @@ h2 {
 .letter-card {
   width: 90vw;
   max-width: 440px;
-  /* ขยายความกว้างการ์ด */
   height: 620px;
-  /* ขยายความสูงให้ตัวหนังสือไม่ล้น */
   perspective: 1400px;
   cursor: pointer;
   margin: 0 auto;
-  /* จัดกึ่งกลางหน้าจอ */
 }
 
 .letter-inner {
@@ -458,19 +455,18 @@ h2 {
   transform: rotateY(180deg);
 }
 
+/* บรรทัดนี้สำคัญมาก ห้ามหาย! ทำให้หน้า-หลังซ้อนกันพอดี */
 .letter-front,
 .letter-back {
-  background: linear-gradient(160deg, var(--pink), var(--peach));
-  transform: rotateY(180deg);
-  box-shadow: 0 16px 44px rgba(255, 143, 174, 0.4);
-  overflow-y: auto;
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /* ดันข้อความให้อยู่ตรงกลางการ์ด */
-  text-align: center;
-  /* บังคับตัวหนังสืออยู่กึ่งกลาง */
+  padding: 30px;
 }
 
 .letter-front {
@@ -494,8 +490,8 @@ h2 {
   transform: rotateY(180deg);
   box-shadow: 0 16px 44px rgba(255, 143, 174, 0.4);
   overflow-y: auto;
-  justify-content: flex-start;
-  text-align: left;
+  text-align: center;
+  /* บังคับตัวหนังสืออยู่กึ่งกลาง */
 }
 
 .letter-title {
