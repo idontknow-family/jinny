@@ -416,8 +416,8 @@ h2 {
 }
 
 .letter-card {
-  width: min(340px, 85vw);
-  aspect-ratio: 3/4;
+  width: min(340px, 88vw);
+  height: min(520px, 78vh);
   perspective: 1400px;
   cursor: pointer;
 }
@@ -467,6 +467,9 @@ h2 {
   background: linear-gradient(160deg, var(--pink), var(--peach));
   transform: rotateY(180deg);
   box-shadow: 0 16px 44px rgba(255, 143, 174, 0.4);
+  overflow-y: auto;
+  justify-content: flex-start;
+  text-align: left;
 }
 
 .letter-title {
@@ -475,6 +478,8 @@ h2 {
   font-size: 1.4rem;
   color: var(--white);
   margin-bottom: 16px;
+  text-align: center;
+  width: 100%;
 }
 
 .letter-body {
@@ -488,6 +493,9 @@ h2 {
   font-family: var(--font-hand);
   color: var(--white);
   font-size: 0.95rem;
+  text-align: center;
+  width: 100%;
+  margin-top: 6px;
 }
 
 footer {
