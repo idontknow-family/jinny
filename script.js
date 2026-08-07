@@ -8,25 +8,39 @@ window.addEventListener('load', () => {
 });
 
 // ============================================================
-// 2) แบคกราวด์หัวใจลอยขึ้นเบาๆ
+// 2) แบคกราวด์ลอยขึ้นเบาๆ (หัวใจ หมู แมว โบว์)
 // ============================================================
 const heartBg = document.getElementById('heart-bg');
-const heartEmojis = ['💗', '🩷', '💕'];
+const bgEmojis = ['💗', '🐷', '🐱', '🎀', '✨', '🤍']; // เพิ่มน้องหมู น้องแมว ตามรีเควส
 
-function spawnBackgroundHeart() {
-  const heart = document.createElement('div');
-  heart.className = 'floating-heart';
-  heart.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
-  heart.style.left = Math.random() * 100 + 'vw';
-  const size = 14 + Math.random() * 18;
-  heart.style.fontSize = size + 'px';
+function spawnBackgroundElement() {
+  if (!heartBg) return;
+  const el = document.createElement('div');
+  el.className = 'floating-heart';
+  el.textContent = bgEmojis[Math.floor(Math.random() * bgEmojis.length)];
+
+  // สุ่มตำแหน่งแกน X
+  el.style.left = Math.random() * 100 + 'vw';
+
+  // สุ่มขนาดให้ดูมีมิติ (เล็ก-ใหญ่สลับกัน)
+  const size = 16 + Math.random() * 20;
+  el.style.fontSize = size + 'px';
+
+  // สุ่มความเร็วให้ลอยช้าๆ นุ่มๆ (8-14 วินาที)
   const duration = 8 + Math.random() * 6;
-  heart.style.animationDuration = duration + 's';
-  heartBg.appendChild(heart);
-  setTimeout(() => heart.remove(), duration * 1000);
+  el.style.animationDuration = duration + 's';
+
+  // ปรับความจางให้ฟุ้งๆ (opacity 0.15 - 0.45) ไม่กวนข้อความหลัก
+  el.style.opacity = Math.random() * 0.3 + 0.15;
+
+  heartBg.appendChild(el);
+
+  // ลบทิ้งเมื่อลอยพ้นจอเพื่อไม่ให้เว็บกระตุก
+  setTimeout(() => el.remove(), duration * 1000);
 }
-setInterval(spawnBackgroundHeart, 900);
-for (let i = 0; i < 5; i++) setTimeout(spawnBackgroundHeart, i * 300);
+
+setInterval(spawnBackgroundElement, 800);
+for (let i = 0; i < 5; i++) setTimeout(spawnBackgroundElement, i * 300);
 
 // ============================================================
 // 3) Scroll reveal (fade + float up) สำหรับทุกอย่างที่มี class .reveal

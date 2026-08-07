@@ -327,11 +327,26 @@ h2 {
 }
 
 .polaroid-grid {
-  max-width: 1000px;
+  max-width: 900px;
   margin: 40px auto 0;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 40px 28px;
+  grid-template-columns: repeat(3, 1fr);
+  /* บังคับ 3 คอลัมน์ 3 บน 3 ล่าง เป๊ะๆ */
+  gap: 40px 20px;
+  justify-items: center;
+}
+
+/* เพิ่มให้เรียงสวยๆ ในมือถือ */
+@media (max-width: 768px) {
+  .polaroid-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .polaroid-grid {
+    grid-template-columns: 1fr;
+  }
 }
 
 .polaroid {
@@ -416,10 +431,15 @@ h2 {
 }
 
 .letter-card {
-  width: min(340px, 88vw);
-  height: min(520px, 78vh);
+  width: 90vw;
+  max-width: 440px;
+  /* ขยายความกว้างการ์ด */
+  height: 620px;
+  /* ขยายความสูงให้ตัวหนังสือไม่ล้น */
   perspective: 1400px;
   cursor: pointer;
+  margin: 0 auto;
+  /* จัดกึ่งกลางหน้าจอ */
 }
 
 .letter-inner {
