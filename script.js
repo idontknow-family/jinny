@@ -102,26 +102,41 @@ const io = new IntersectionObserver((items) => {
 document.querySelectorAll('.reveal').forEach(el => io.observe(el));
 
 // ============================================================
-// 4) ปุ่มเปิด/ปิดเพลง
+// 4) ปุ่มเปิด/ปิดเพลง & Autoplay เมื่อคลิกครั้งแรก
 // ============================================================
 const musicBtn = document.getElementById('music-toggle');
 const music = document.getElementById('bg-music');
 let isPlaying = false;
 
-musicBtn.addEventListener('click', () => {
+// ฟังก์ชันสำหรับเล่นเพลง
+function playMusic() {
   if (!isPlaying) {
-    music.play().catch(() => {
-      // ยังไม่มีไฟล์เพลง หรือ browser บล็อก autoplay - ไม่เป็นไร แค่เงียบไว้
+    music.play().then(() => {
+      musicBtn.textContent = '⏸️';
+      musicBtn.classList.add('playing');
+      isPlaying = true;
+    }).catch(() => {
+      // ป้องกันบั๊กกรณีเบราว์เซอร์ยังบล็อกอยู่
     });
-    musicBtn.textContent = '⏸️';
-    musicBtn.classList.add('playing');
+  }
+}
+
+// ฟังก์ชันสำหรับปุ่มกดเปิด-ปิด
+musicBtn.addEventListener('click', (e) => {
+  e.stopPropagation(); // กันไม่ให้ไปซ้ำกับการคลิกหน้าเว็บ
+  if (!isPlaying) {
+    playMusic();
   } else {
     music.pause();
     musicBtn.textContent = '🎵';
     musicBtn.classList.remove('playing');
+    isPlaying = false;
   }
-  isPlaying = !isPlaying;
 });
+
+// แอบดักรอ! ถ้าแฟนคลิกหรือแตะหน้าจอตรงไหนก็ได้ครั้งแรก ให้เล่นเพลงเลย
+document.body.addEventListener('click', playMusic, { once: true });
+document.body.addEventListener('touchstart', playMusic, { once: true });
 
 // ============================================================
 // 5) Quiz คำตอบขี้อาย (หนีเมาส์)

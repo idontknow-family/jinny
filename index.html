@@ -28,42 +28,12 @@
     </div>
   </div>
 
-  // ============================================================
-  // 4) ปุ่มเปิด/ปิดเพลง & Autoplay เมื่อคลิกครั้งแรก
-  // ============================================================
-  const musicBtn = document.getElementById('music-toggle');
-  const music = document.getElementById('bg-music');
-  let isPlaying = false;
-
-  // ฟังก์ชันสำหรับเล่นเพลง
-  function playMusic() {
-  if (!isPlaying) {
-  music.play().then(() => {
-  musicBtn.textContent = '⏸️';
-  musicBtn.classList.add('playing');
-  isPlaying = true;
-  }).catch(() => {
-  // ป้องกันบั๊กกรณีเบราว์เซอร์ยังบล็อกอยู่
-  });
-  }
-  }
-
-  // ฟังก์ชันสำหรับปุ่มกดเปิด-ปิด
-  musicBtn.addEventListener('click', (e) => {
-  e.stopPropagation(); // กันไม่ให้ไปซ้ำกับการคลิกหน้าเว็บ
-  if (!isPlaying) {
-  playMusic();
-  } else {
-  music.pause();
-  musicBtn.textContent = '🎵';
-  musicBtn.classList.remove('playing');
-  isPlaying = false;
-  }
-  });
-
-  // แอบดักรอ! ถ้าแฟนคลิกหรือแตะหน้าจอตรงไหนก็ได้ครั้งแรก ให้เล่นเพลงเลย
-  document.body.addEventListener('click', playMusic, { once: true });
-  document.body.addEventListener('touchstart', playMusic, { once: true });
+  <!-- ปุ่มเพลง มุมขวาล่าง -->
+  <button id="music-toggle" aria-label="เปิด/ปิดเพลง">🎵</button>
+  <!-- ใส่ไฟล์เพลงที่ assets/music.mp3 แล้วลบ comment ด้านล่าง -->
+  <audio id="bg-music" loop>
+    <source src="assets/music.mp3" type="audio/mpeg">
+  </audio>
 
   <!-- HERO -->
   <section class="hero">
