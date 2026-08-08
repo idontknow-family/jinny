@@ -9,9 +9,9 @@ setTimeout(() => {
 }, 1400);
 
 // ============================================================
-// 2) แบคกราวด์อิโมจิลอย
+// 2) แบคกราวด์หัวใจลอยจางๆ (เอาแค่หัวใจ ไม่เอาอิโมจิอื่น)
 // ============================================================
-const bgEmojis = ['💗', '🐷', '🐱', '🎀', '✨', '🤍', '💟', '💝', '💖', '💕'];
+const bgEmojis = ['💗', '🩷', '💕', '🤍'];
 
 function spawnBackgroundElement() {
     const heartBg = document.getElementById('heart-bg');
@@ -20,13 +20,13 @@ function spawnBackgroundElement() {
     el.className = 'floating-heart';
     el.textContent = bgEmojis[Math.floor(Math.random() * bgEmojis.length)];
     el.style.left = Math.random() * 90 + 5 + '%';
-    el.style.fontSize = (24 + Math.random() * 16) + 'px';
-    const duration = 6 + Math.random() * 4;
+    el.style.fontSize = (14 + Math.random() * 10) + 'px'; // เล็กลง จางลง
+    const duration = 8 + Math.random() * 5;
     el.style.animationDuration = duration + 's';
     heartBg.appendChild(el);
     setTimeout(() => el.remove(), duration * 1000);
 }
-setInterval(spawnBackgroundElement, 700);
+setInterval(spawnBackgroundElement, 1200); // ช้าลง ไม่รกตา
 
 // ============================================================
 // 3) ปุ่มเปิด/ปิดเพลง
@@ -59,7 +59,6 @@ if (musicBtn) {
         }
     });
 }
-// กดที่ไหนก็ได้ในหน้าเว็บครั้งแรก ช่วยปลดล็อก autoplay เพลง
 document.body.addEventListener('click', playMusic, { once: true });
 
 // ============================================================
@@ -74,7 +73,56 @@ function goToPage(hideId, showId) {
 }
 
 // ============================================================
-// 5) ระบบนับเวลาคบกัน (Timer)
+// 5) ควิซทายเดือน (ปุ่มหนีเมาส์) + เปิดเผยตัวนับเวลา
+// ============================================================
+const monthsQuizContainer = document.getElementById('monthsQuizContainer');
+const monthsQuizResult = document.getElementById('monthsQuizResult');
+const monthsCorrectBtn = document.getElementById('monthsCorrectBtn');
+const loveTimerWrap = document.getElementById('love-timer-wrap');
+const canHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+if (monthsQuizContainer) {
+    const monthsWrongButtons = monthsQuizContainer.querySelectorAll('.months-quiz-btn.wrong');
+
+    function relocateMonthsButton(btn) {
+        const containerRect = monthsQuizContainer.getBoundingClientRect();
+        const btnRect = btn.getBoundingClientRect();
+        const maxX = Math.max(containerRect.width - btnRect.width, 0);
+        const maxY = Math.max(containerRect.height - btnRect.height, 0);
+        btn.style.left = Math.random() * maxX + 'px';
+        btn.style.top = Math.random() * maxY + 'px';
+    }
+
+    if (canHover) {
+        monthsQuizContainer.addEventListener('mousemove', (e) => {
+            monthsWrongButtons.forEach((btn) => {
+                const rect = btn.getBoundingClientRect();
+                const centerX = rect.left + rect.width / 2;
+                const centerY = rect.top + rect.height / 2;
+                const dist = Math.hypot(centerX - e.clientX, centerY - e.clientY);
+                if (dist < 90) relocateMonthsButton(btn);
+            });
+        });
+    } else {
+        monthsWrongButtons.forEach((btn) => {
+            btn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                relocateMonthsButton(btn);
+            });
+        });
+    }
+
+    if (monthsCorrectBtn) {
+        monthsCorrectBtn.addEventListener('click', () => {
+            if (monthsQuizResult) monthsQuizResult.textContent = 'เย้ เก่งจังเลยยยย 🎉';
+            if (loveTimerWrap) loveTimerWrap.classList.remove('hidden-page');
+            launchHeartConfetti();
+        });
+    }
+}
+
+// ============================================================
+// 6) ระบบนับเวลาคบกัน (Timer)
 // ============================================================
 const timerEl = document.getElementById('love-timer');
 if (timerEl) {
@@ -105,33 +153,33 @@ if (timerEl) {
 }
 
 // ============================================================
-// 6) ระบบเกมควิซ "จินรู้ใจหมูแค่ไหน"
+// 7) ระบบเกมควิซ "จินรู้ใจหมูแค่ไหน"
 // ============================================================
-// แก้คำถาม/ตัวเลือก/เฉลยได้ตรงนี้เลย (correctIndex อิงจาก 0)
+// correctIndex: 'any' หมายถึงตอบข้อไหนก็ถือว่าถูกหมด
 const questions = [
     {
-        question: "1. หมูชอบกินอะไรที่สุด?",
-        choices: ["ชาบู", "หมูกระทะ", "ขนมหวาน", "ส้มตำ"],
-        correctIndex: 1
+        question: "1. ให้ทายวันนี้เค้าถืออะไรในมือ",
+        choices: ["แมว", "หมู", "หมา", "กระต่าย"],
+        correctIndex: 'any'
     },
     {
-        question: "2. สถานที่ที่หมูชอบไป?",
-        choices: ["ทะเล", "ภูเขา", "คาเฟ่", "นอนอยู่ห้อง"],
-        correctIndex: 3
-    },
-    {
-        question: "3. คำถามที่ 3 ใส่ตรงนี้?",
-        choices: ["ก", "ข", "ค", "ง"],
+        question: "2. ประเทศแรกที่เราเจอกันคือประเทศไหน",
+        choices: ["GoodTown", "BoostBoost", "WipTown", "BearCity"],
         correctIndex: 0
     },
     {
-        question: "4. คำถามที่ 4 ใส่ตรงนี้?",
-        choices: ["ก", "ข", "ค", "ง"],
-        correctIndex: 2
+        question: "3. เค้าเกิดวันอะไร",
+        choices: ["เสาร์", "จันทร์", "ศุกร์", "อาทิตย์", "พุธ"],
+        correctIndex: 0
     },
     {
-        question: "5. รักจินไหม?",
-        choices: ["รัก", "รักมาก", "รักที่สุด", "ทั้งหมดนั่นแหละ!"],
+        question: "4. แมวที่เค้าอยากขโมยที่สุดชื่ออะไรรร",
+        choices: ["เบอร์ 2", "ยัยเนี๊ยะะ", "มีตัง", "ปุ้กลุ้ก", "เบอร์ 3"],
+        correctIndex: 1
+    },
+    {
+        question: "5. เค้ารักจินมากแค่ไหน",
+        choices: ["รักนิดเดียว", "รักหน่อยนึง", "รักมากก", "รักมากที่สุดในสามโลกกกกก"],
         correctIndex: 3
     }
 ];
@@ -161,7 +209,7 @@ function showQuestion() {
 
     if (stepEl) stepEl.textContent = `ข้อ ${currentQuestionIndex + 1}/${questions.length}`;
     if (questionEl) questionEl.textContent = qData.question;
-    if (nextBtn) nextBtn.classList.add('hidden-page'); // ซ่อนปุ่มถัดไปจนกว่าจะเลือกคำตอบ
+    if (nextBtn) nextBtn.classList.add('hidden-page');
 
     if (choicesEl) {
         choicesEl.innerHTML = '';
@@ -181,14 +229,20 @@ function selectAnswer(selectedIndex) {
     const nextBtn = document.getElementById('quiz-next-btn');
     if (!choicesEl) return;
 
+    const isAnyCorrect = qData.correctIndex === 'any';
     const buttons = choicesEl.querySelectorAll('.choice-btn');
+
     buttons.forEach((btn, index) => {
         btn.disabled = true;
-        if (index === qData.correctIndex) btn.classList.add('correct');
-        if (index === selectedIndex && selectedIndex !== qData.correctIndex) btn.classList.add('wrong');
+        if (isAnyCorrect) {
+            btn.classList.add('correct');
+        } else {
+            if (index === qData.correctIndex) btn.classList.add('correct');
+            if (index === selectedIndex && selectedIndex !== qData.correctIndex) btn.classList.add('wrong');
+        }
     });
 
-    if (selectedIndex === qData.correctIndex) score++;
+    if (isAnyCorrect || selectedIndex === qData.correctIndex) score++;
 
     if (nextBtn) {
         nextBtn.classList.remove('hidden-page');
@@ -229,7 +283,7 @@ function showResult() {
 }
 
 // ============================================================
-// 7) การ์ดจดหมาย 3D
+// 8) การ์ดจดหมาย 3D
 // ============================================================
 const letterCard = document.getElementById('letterCard');
 let letterOpened = false;

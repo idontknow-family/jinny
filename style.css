@@ -35,7 +35,7 @@ body {
   color: var(--white);
 }
 
-/* ---------- แบคกราวด์หัวใจลอย ---------- */
+/* ---------- แบคกราวด์หัวใจลอย (จางๆ อยู่หลังเนื้อหา) ---------- */
 #heart-bg {
   position: fixed;
   top: 0;
@@ -43,7 +43,7 @@ body {
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: 900;
+  z-index: 0;
   overflow: hidden;
 }
 
@@ -51,7 +51,9 @@ body {
   position: absolute;
   bottom: -50px;
   pointer-events: none;
-  animation: floatUp 8s linear forwards;
+  opacity: 0.35;
+  filter: blur(0.3px);
+  animation: floatUp 9s linear forwards;
 }
 
 @keyframes floatUp {
@@ -61,11 +63,11 @@ body {
   }
 
   10% {
-    opacity: 1;
+    opacity: 0.35;
   }
 
   90% {
-    opacity: 1;
+    opacity: 0.35;
   }
 
   100% {
@@ -189,6 +191,15 @@ h3 {
   opacity: 0;
 }
 
+/* ---------- หมูหน้าต้อนรับ ---------- */
+.welcome-pig-img {
+  width: min(200px, 50vw);
+  display: block;
+  margin: 0 auto;
+  animation: pulseSoft 2.4s ease-in-out infinite;
+  filter: drop-shadow(0 10px 20px rgba(255, 143, 174, 0.35));
+}
+
 /* ---------- ปุ่มทั่วไป ---------- */
 .main-btn,
 .back-btn {
@@ -272,7 +283,65 @@ h3 {
   margin-top: 20px;
 }
 
+/* ---------- ควิซทายเดือน (ปุ่มหนีเมาส์) ---------- */
+.months-quiz-hint {
+  font-family: var(--font-hand);
+  color: var(--text-soft);
+  font-size: 0.85rem;
+  margin-top: 6px;
+  margin-bottom: 8px;
+}
+
+.months-quiz-buttons {
+  position: relative;
+  width: 100%;
+  height: 240px;
+  margin: 16px auto 0;
+}
+
+.months-quiz-btn {
+  position: absolute;
+  padding: 11px 20px;
+  border-radius: 999px;
+  border: none;
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: left 0.35s cubic-bezier(.2, .9, .25, 1), top 0.35s cubic-bezier(.2, .9, .25, 1), transform 0.2s ease;
+  box-shadow: 0 8px 18px rgba(107, 84, 87, 0.12);
+}
+
+.months-quiz-btn.wrong {
+  background: var(--cream-deep);
+  color: var(--text-soft);
+  border: 1.5px solid var(--pink);
+}
+
+.months-quiz-btn.correct {
+  background: var(--pink-deep);
+  color: var(--white);
+  font-weight: 600;
+  box-shadow: 0 10px 24px rgba(255, 143, 174, 0.45);
+}
+
+.months-quiz-btn.correct:hover {
+  transform: scale(1.06);
+}
+
+.months-quiz-result {
+  margin-top: 14px;
+  font-family: var(--font-display);
+  color: var(--pink-deep);
+  font-size: 1.1rem;
+  min-height: 1.4em;
+  text-align: center;
+}
+
 /* ---------- TIMER ---------- */
+#love-timer-wrap {
+  margin-top: 10px;
+}
+
 #love-timer {
   margin-top: 20px;
 }
@@ -321,7 +390,7 @@ h3 {
   opacity: 0.9;
 }
 
-/* ---------- QUIZ ใหม่ ---------- */
+/* ---------- QUIZ "จินรู้ใจหมูแค่ไหน" ---------- */
 .quiz-step {
   display: inline-block;
   background: var(--cream-deep);
@@ -408,6 +477,7 @@ h3 {
   aspect-ratio: 4/5;
   object-fit: cover;
   border-radius: 3px;
+  background: var(--cream-deep);
 }
 
 .polaroid-caption {

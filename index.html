@@ -16,7 +16,7 @@
 
 <body>
 
-  <!-- ฉากหลังอิโมจิลอย -->
+  <!-- ฉากหลังหัวใจลอยจางๆ -->
   <div id="heart-bg"></div>
 
   <!-- LOADING SCREEN -->
@@ -37,11 +37,12 @@
   <!-- ================= 1. หน้าต้อนรับ (ปีศาจหมู) ================= -->
   <section id="page-welcome" class="app-page active">
     <div class="flower-bouquet" style="margin-top: 10vh;">
-      <span style="font-size: 8rem; display: block; animation: pulseSoft 2s infinite;">🐷</span>
+      <!-- ต้องมีไฟล์ assets/pig.png -->
+      <img src="assets/pig.png" alt="pig" class="welcome-pig-img">
     </div>
     <h2 style="font-size: 2rem; margin-top: 20px;">เอาไปเลย<br>ปีศาจหมูสำหรับคนน่ารัก</h2>
     <br>
-    <button class="main-btn" onclick="goToPage('page-welcome', 'page-menu')">ไปต่อหยอกเล่นน 💖</button>
+    <button class="main-btn" onclick="goToPage('page-welcome', 'page-menu')">ไปต่อหยอกเล่นนน 💖</button>
   </section>
 
 
@@ -53,7 +54,7 @@
       <!-- 1. นับเวลา -->
       <button class="grid-btn" onclick="goToPage('page-menu', 'page-timer')">
         <span class="menu-icon">🍒</span>
-        <span>เราคบกันมา<br>กี่เดือนแล้วนะ</span>
+        <span>เราคบกันมา<br>กี่เดือนแล้วน้าาา</span>
       </button>
 
       <!-- 2. ความทรงจำ -->
@@ -65,43 +66,59 @@
       <!-- 3. ควิซ -->
       <button class="grid-btn" onclick="goToPage('page-menu', 'page-quiz'); startQuiz();">
         <span class="menu-icon">🧁</span>
-        <span>จินรู้ใจหมู<br>แค่ไหน</span>
+        <span>จินรู้ใจหมูนิรัน<br>แค่ไหน</span>
       </button>
 
       <!-- 4. จดหมาย -->
       <button class="grid-btn" onclick="goToPage('page-menu', 'page-letter')">
         <span class="menu-icon">🐰</span>
-        <span>จดหมาย<br>ให้จิน</span>
+        <span>จดหมาย<br>ให้จินนน</span>
       </button>
 
     </div>
   </section>
 
 
-  <!-- ================= 3. หน้านับเวลา ================= -->
+  <!-- ================= 3. หน้านับเวลา (ควิซทายเดือน + ตัวนับ) ================= -->
   <section id="page-timer" class="app-page hidden-page">
     <div class="card-container">
-      <h3>ตั้งแต่จีบกันวันแรก 💖</h3>
+      <h3>เราคบกันมาแล้วกี่เดือน? 🤔</h3>
+      <p class="months-quiz-hint">(คำตอบบางอันมันดื้อนะ ลองจิ้มดู...)</p>
 
-      <!-- ใส่วันที่เริ่มจีบกันตรงนี้ (ปี-เดือน-วันTเวลา) -->
-      <div id="love-timer" data-startdate="2026-03-21T00:00:00">
-        <div class="timer-main">
-          <span id="timer-days" class="number">0</span>
-          <span class="label">วัน</span>
-        </div>
+      <div class="months-quiz-buttons" id="monthsQuizContainer">
+        <button class="months-quiz-btn wrong" style="left:5%; top:8%;">4 เดือน</button>
+        <button class="months-quiz-btn wrong" style="left:56%; top:4%;">3 เดือน</button>
+        <button class="months-quiz-btn correct" id="monthsCorrectBtn" style="left:34%; top:42%;">1 เดือน</button>
+        <button class="months-quiz-btn wrong" style="left:8%; top:70%;">2 เดือน</button>
+        <button class="months-quiz-btn wrong" style="left:60%; top:72%;">6 เดือน</button>
+      </div>
 
-        <div class="timer-boxes">
-          <div class="time-box">
-            <span id="timer-hours">0</span>
-            <span>ชั่วโมง</span>
+      <p class="months-quiz-result" id="monthsQuizResult"></p>
+
+      <!-- ตัวนับเวลาจริง โผล่มาหลังตอบถูก -->
+      <div id="love-timer-wrap" class="hidden-page">
+        <h3 style="margin-top: 30px;">ตั้งแต่จีบกันวันแรก 💖</h3>
+
+        <!-- 16/7/2026 เพราะครบ 1 เดือนพอดีวันที่ 16/8/2026 -->
+        <div id="love-timer" data-startdate="2026-07-16T00:00:00">
+          <div class="timer-main">
+            <span id="timer-days" class="number">0</span>
+            <span class="label">วัน</span>
           </div>
-          <div class="time-box">
-            <span id="timer-minutes">0</span>
-            <span>นาที</span>
-          </div>
-          <div class="time-box">
-            <span id="timer-seconds">0</span>
-            <span>วินาที</span>
+
+          <div class="timer-boxes">
+            <div class="time-box">
+              <span id="timer-hours">0</span>
+              <span>ชั่วโมง</span>
+            </div>
+            <div class="time-box">
+              <span id="timer-minutes">0</span>
+              <span>นาที</span>
+            </div>
+            <div class="time-box">
+              <span id="timer-seconds">0</span>
+              <span>วินาที</span>
+            </div>
           </div>
         </div>
       </div>
@@ -150,7 +167,6 @@
   <section id="page-quiz" class="app-page hidden-page">
     <div class="card-container quiz-card">
 
-      <!-- ส่วนแสดงคำถาม -->
       <div id="quiz-question-container">
         <span class="quiz-step" id="quiz-step">ข้อ 1/5</span>
         <h3 id="quiz-question" style="margin-bottom: 20px;">คำถามจะแสดงตรงนี้</h3>
@@ -163,9 +179,8 @@
           style="margin-top: 20px; padding: 10px 20px; font-size: 1rem;" onclick="nextQuestion()">ข้อต่อไป ➡</button>
       </div>
 
-      <!-- ส่วนสรุปคะแนน (ซ่อนไว้ก่อน) -->
       <div id="quiz-result-container" class="hidden-page">
-        <h2>เย้! จบแล้วว 🎉</h2>
+        <h2>เย้! ครบทุกข้อแล้วว 🎉</h2>
         <div style="font-size: 4rem; margin: 20px 0;">🏆</div>
         <h3>จินได้คะแนน <span id="quiz-score" style="color: var(--pink-deep); font-size: 2rem;">0</span> / 5</h3>
         <p id="quiz-feedback-text" style="margin-top: 10px; color: var(--text-soft);"></p>
@@ -184,7 +199,7 @@
       <div class="letter-inner">
         <div class="letter-front">
           <div class="seal">💌</div>
-          <p>จิ้มเพื่อเปิดอ่าน 💖</p>
+          <p>จิ้มมม เร็ววว 💖</p>
         </div>
         <div class="letter-back">
           <p class="letter-title">สุขสันต์วันครบรอบนะค้าบ<br>คนเก่งของเค้าา 🌷💕</p>
