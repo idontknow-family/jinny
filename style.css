@@ -96,8 +96,10 @@ body {
   pointer-events: none;
 }
 
-.load-heart {
-  font-size: 3.5rem;
+.load-heart-img {
+  width: 120px;
+  height: 120px;
+  object-fit: contain;
   animation: pulseSoft 1.4s ease-in-out infinite;
 }
 

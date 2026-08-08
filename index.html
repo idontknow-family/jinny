@@ -21,7 +21,7 @@
 
   <!-- LOADING SCREEN -->
   <div id="loading">
-    <div class="load-heart">🐷</div>
+    <img src="assets/waitpig.png" alt="pig" class="load-heart-img">
     <div class="load-text">พร้อมอ้ะยังง...</div>
     <div class="load-bar-track">
       <div class="load-bar-fill"></div>
@@ -31,7 +31,7 @@
   <!-- ปุ่มเปิด/ปิดเพลง มุมขวาล่าง -->
   <button id="music-toggle" aria-label="เปิด/ปิดเพลง">🎵</button>
   <audio id="bg-music" loop>
-    <source src="assets/music.mp3" type="audio/mpeg">
+    <source src="assets/pun.mp3" type="audio/mpeg">
   </audio>
 
   <!-- ================= 1. หน้าต้อนรับ (ปีศาจหมู) ================= -->
@@ -42,7 +42,7 @@
     </div>
     <h2 style="font-size: 2rem; margin-top: 20px;">เอาไปเลย<br>ปีศาจหมูสำหรับคนน่ารัก</h2>
     <br>
-    <button class="main-btn" onclick="goToPage('page-welcome', 'page-menu')">ไปต่อหยอกเล่นนน 💖</button>
+    <button class="main-btn" onclick="goToPage('page-welcome', 'page-menu')">ไปต่อหยอกเล่นน 💖</button>
   </section>
 
 
@@ -54,7 +54,7 @@
       <!-- 1. นับเวลา -->
       <button class="grid-btn" onclick="goToPage('page-menu', 'page-timer')">
         <span class="menu-icon">🍒</span>
-        <span>เราคบกันมา<br>กี่เดือนแล้วน้าาา</span>
+        <span>เราคบกันมา<br>กี่เดือนแล้วนะ</span>
       </button>
 
       <!-- 2. ความทรงจำ -->
@@ -66,13 +66,13 @@
       <!-- 3. ควิซ -->
       <button class="grid-btn" onclick="goToPage('page-menu', 'page-quiz'); startQuiz();">
         <span class="menu-icon">🧁</span>
-        <span>จินรู้ใจหมูนิรัน<br>แค่ไหน</span>
+        <span>จินรู้ใจหมู<br>แค่ไหน</span>
       </button>
 
       <!-- 4. จดหมาย -->
       <button class="grid-btn" onclick="goToPage('page-menu', 'page-letter')">
         <span class="menu-icon">🐰</span>
-        <span>จดหมาย<br>ให้จินนน</span>
+        <span>จดหมาย<br>ให้จิน</span>
       </button>
 
     </div>
@@ -83,7 +83,7 @@
   <section id="page-timer" class="app-page hidden-page">
     <div class="card-container">
       <h3>เราคบกันมาแล้วกี่เดือน? 🤔</h3>
-      <p class="months-quiz-hint">(คำตอบบางอันมันดื้อนะ ลองจิ้มดู...)</p>
+      <p class="months-quiz-hint">(คำตอบบางอันขี้อาย ลองเอาเมาส์ไปจิ้มดู...)</p>
 
       <div class="months-quiz-buttons" id="monthsQuizContainer">
         <button class="months-quiz-btn wrong" style="left:5%; top:8%;">4 เดือน</button>
@@ -180,7 +180,7 @@
       </div>
 
       <div id="quiz-result-container" class="hidden-page">
-        <h2>เย้! ครบทุกข้อแล้วว 🎉</h2>
+        <h2>เย้! จบแล้วว 🎉</h2>
         <div style="font-size: 4rem; margin: 20px 0;">🏆</div>
         <h3>จินได้คะแนน <span id="quiz-score" style="color: var(--pink-deep); font-size: 2rem;">0</span> / 5</h3>
         <p id="quiz-feedback-text" style="margin-top: 10px; color: var(--text-soft);"></p>
@@ -199,7 +199,7 @@
       <div class="letter-inner">
         <div class="letter-front">
           <div class="seal">💌</div>
-          <p>จิ้มมม เร็ววว 💖</p>
+          <p>จิ้มเพื่อเปิดอ่าน 💖</p>
         </div>
         <div class="letter-back">
           <p class="letter-title">สุขสันต์วันครบรอบนะค้าบ<br>คนเก่งของเค้าา 🌷💕</p>
