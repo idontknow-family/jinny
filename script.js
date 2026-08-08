@@ -11,7 +11,7 @@ setTimeout(() => {
 // ============================================================
 // 2) แบคกราวด์หัวใจลอยจางๆ (เอาแค่หัวใจ ไม่เอาอิโมจิอื่น)
 // ============================================================
-const bgEmojis = ['💗', '🩷', '💕', '🤍'];
+const bgEmojis = ['💗', '💝', '💕', '🤍'];
 
 function spawnBackgroundElement() {
     const heartBg = document.getElementById('heart-bg');
@@ -37,7 +37,7 @@ let isPlaying = false;
 
 function playMusic() {
     if (!isPlaying) {
-        music.volume = 0.15;
+        music.volume = 0.10;
         music.play().then(() => {
             musicBtn.textContent = '⏸️';
             musicBtn.classList.add('playing');
@@ -271,11 +271,9 @@ function showResult() {
 
     if (feedbackEl) {
         if (score === questions.length) {
-            feedbackEl.textContent = 'เก่งมากก รู้ใจหมูที่สุดเลย! 🥰';
-        } else if (score >= 3) {
-            feedbackEl.textContent = 'ถือว่าผ่านน เกือบรู้ใจหมดละนะ 😆';
+            feedbackEl.textContent = 'เก่งที่สุดดเลยยย 🥰';
         } else {
-            feedbackEl.textContent = 'โดนตีแน่ จำไม่ได้หรอ! 😤';
+            feedbackEl.textContent = 'ต่อให้ไม่ได้คะแนนเต็มเค้าก็รักจินที่สุดดด 💗';
         }
     }
 
@@ -283,7 +281,39 @@ function showResult() {
 }
 
 // ============================================================
-// 8) การ์ดจดหมาย 3D
+// 8.5) Tilt hover สำหรับรูปโพลารอยด์ในแกลเลอรี่
+// ============================================================
+const polaroidCards = document.querySelectorAll('.polaroid');
+const hasHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+
+if (hasHover && polaroidCards.length) {
+    const maxTilt = 12; // องศาที่เอียงได้มากสุด
+
+    polaroidCards.forEach((card) => {
+        card.addEventListener('mousemove', (e) => {
+            const rect = card.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            const centerX = rect.width / 2;
+            const centerY = rect.height / 2;
+            const rotateY = ((x - centerX) / centerX) * maxTilt;
+            const rotateX = -((y - centerY) / centerY) * maxTilt;
+
+            card.style.transform = `perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.06)`;
+            card.style.boxShadow = '0 22px 36px rgba(107, 84, 87, 0.22)';
+            card.style.zIndex = '5';
+        });
+
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = '';
+            card.style.boxShadow = '';
+            card.style.zIndex = '';
+        });
+    });
+}
+
+// ============================================================
+// 9) การ์ดจดหมาย 3D
 // ============================================================
 const letterCard = document.getElementById('letterCard');
 let letterOpened = false;
@@ -302,7 +332,7 @@ if (letterCard) {
 // confetti หัวใจ (ใช้ร่วมกันทั้งควิซและจดหมาย)
 // ============================================================
 function launchHeartConfetti() {
-    const emojis = ['💗', '🩷', '💕', '✨'];
+    const emojis = ['💗', '💝', '💕', '✨'];
     for (let i = 0; i < 40; i++) {
         const piece = document.createElement('div');
         piece.className = 'confetti-heart';
