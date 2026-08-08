@@ -343,3 +343,29 @@ function launchHeartConfetti() {
         setTimeout(() => piece.remove(), 4500);
     }
 }
+
+// ============================================================
+// 10) Easter Egg: แมวลับ + บัตรตามใจ
+// ============================================================
+const eggCatBtn = document.getElementById('easter-egg-cat');
+const eggModal = document.getElementById('egg-modal');
+const eggModalClose = document.getElementById('egg-modal-close');
+
+if (eggCatBtn && eggModal) {
+    eggCatBtn.addEventListener('click', () => {
+        eggModal.classList.remove('hidden-page');
+        launchHeartConfetti();
+    });
+}
+
+if (eggModalClose && eggModal) {
+    eggModalClose.addEventListener('click', () => {
+        eggModal.classList.add('hidden-page');
+    });
+}
+
+if (eggModal) {
+    eggModal.addEventListener('click', (e) => {
+        if (e.target === eggModal) eggModal.classList.add('hidden-page');
+    });
+}

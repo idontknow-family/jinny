@@ -218,6 +218,24 @@
     <button class="back-btn" onclick="goToPage('page-letter', 'page-menu')">ย้อนกลับ</button>
   </section>
 
+  <!-- Easter Egg: แมวลับ (ซ่อนอยู่มุมล่างซ้าย จางๆ) -->
+  <button id="easter-egg-cat" aria-label="???" class="egg-cat-btn">
+    <img src="assets/meow.png" alt="">
+  </button>
+
+  <div id="egg-modal" class="egg-modal hidden-page">
+    <div class="egg-modal-card">
+      <img src="assets/meow.png" alt="" class="egg-modal-cat">
+      <h3>เจอแล้ว! 🐱✨</h3>
+      <div class="coupon">
+        <div class="coupon-ticket">🎫</div>
+        <p class="coupon-title">บัตรตามใจ 1 ใบ</p>
+        <p class="coupon-desc">ขอ/สั่งอะไรก็ได้ 1 อย่าง<br>ใช้ได้ก่อนวันครบรอบเดือนหน้า<br>(16 ก.ย. 69)</p>
+      </div>
+      <button class="main-btn" id="egg-modal-close" style="margin-top: 20px;">ปิด</button>
+    </div>
+  </div>
+
   <script src="script.js"></script>
 </body>
 
