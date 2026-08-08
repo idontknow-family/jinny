@@ -28,12 +28,6 @@
     </div>
   </div>
 
-  <!-- ปุ่มเปิด/ปิดเพลง มุมขวาล่าง -->
-  <button id="music-toggle" aria-label="เปิด/ปิดเพลง">🎵</button>
-  <audio id="bg-music" loop>
-    <source src="assets/pun.mp3" type="audio/mpeg">
-  </audio>
-
   <!-- ================= 1. หน้าต้อนรับ (ปีศาจหมู) ================= -->
   <section id="page-welcome" class="app-page active">
     <div class="flower-bouquet" style="margin-top: 10vh;">
@@ -97,7 +91,7 @@
 
       <!-- ตัวนับเวลาจริง โผล่มาหลังตอบถูก -->
       <div id="love-timer-wrap" class="hidden-page">
-        <h3 style="margin-top: 30px;">ตั้งแต่จีบกันวันแรก 💖</h3>
+        <h3 style="margin-top: 30px;">ตั้งแต่คบกันวันแรก 💖</h3>
 
         <!-- 16/7/2026 เพราะครบ 1 เดือนพอดีวันที่ 16/8/2026 -->
         <div id="love-timer" data-startdate="2026-07-16T00:00:00">
@@ -180,7 +174,7 @@
       </div>
 
       <div id="quiz-result-container" class="hidden-page">
-        <h2>เย้! จบแล้วว 🎉</h2>
+        <h2>เย้! ครบทุกข้อแล้วว 🎉</h2>
         <div style="font-size: 4rem; margin: 20px 0;">🏆</div>
         <h3>จินได้คะแนน <span id="quiz-score" style="color: var(--pink-deep); font-size: 2rem;">0</span> / 5</h3>
         <p id="quiz-feedback-text" style="margin-top: 10px; color: var(--text-soft);"></p>
@@ -199,7 +193,7 @@
       <div class="letter-inner">
         <div class="letter-front">
           <div class="seal">💌</div>
-          <p>จิ้มเพื่อเปิดอ่าน 💖</p>
+          <p>ลองจิ้มดูสิ 💖</p>
         </div>
         <div class="letter-back">
           <p class="letter-title">สุขสันต์วันครบรอบนะค้าบ<br>คนเก่งของเค้าา 🌷💕</p>
@@ -226,11 +220,11 @@
   <div id="egg-modal" class="egg-modal hidden-page">
     <div class="egg-modal-card">
       <img src="assets/meow.png" alt="" class="egg-modal-cat">
-      <h3>เจอแล้ว! 🐱✨</h3>
+      <h3>เจอยัยเนี๊ยะแล้ว! 🐱✨</h3>
       <div class="coupon">
         <div class="coupon-ticket">🎫</div>
         <p class="coupon-title">บัตรตามใจ 1 ใบ</p>
-        <p class="coupon-desc">ขอ/สั่งอะไรก็ได้ 1 อย่าง<br>ใช้ได้ก่อนวันครบรอบเดือนหน้า<br>(16 ก.ย. 69)</p>
+        <p class="coupon-desc">ขอ/สั่งอะไรเค้าก็ได้ 1 อย่าง<br>ใช้ได้ก่อนวันครบรอบเดือนหน้า<br>(16 ก.ย. 69)</p>
       </div>
       <button class="main-btn" id="egg-modal-close" style="margin-top: 20px;">ปิด</button>
     </div>
