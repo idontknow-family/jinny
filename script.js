@@ -29,40 +29,7 @@ function spawnBackgroundElement() {
 setInterval(spawnBackgroundElement, 1200); // ช้าลง ไม่รกตา
 
 // ============================================================
-// 3) ปุ่มเปิด/ปิดเพลง
-// ============================================================
-const musicBtn = document.getElementById('music-toggle');
-const music = document.getElementById('bg-music');
-let isPlaying = false;
-
-function playMusic() {
-    if (!isPlaying) {
-        music.volume = 0.10;
-        music.play().then(() => {
-            musicBtn.textContent = '⏸️';
-            musicBtn.classList.add('playing');
-            isPlaying = true;
-        }).catch(() => { /* เบราว์เซอร์บล็อก autoplay ไว้ก่อนก็ไม่เป็นไร */ });
-    }
-}
-
-if (musicBtn) {
-    musicBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (!isPlaying) {
-            playMusic();
-        } else {
-            music.pause();
-            musicBtn.textContent = '🎵';
-            musicBtn.classList.remove('playing');
-            isPlaying = false;
-        }
-    });
-}
-document.body.addEventListener('click', playMusic, { once: true });
-
-// ============================================================
-// 4) ระบบเปลี่ยนหน้า (Navigation)
+// 3) ระบบเปลี่ยนหน้า (Navigation)
 // ============================================================
 function goToPage(hideId, showId) {
     const hideEl = document.getElementById(hideId);
@@ -73,7 +40,7 @@ function goToPage(hideId, showId) {
 }
 
 // ============================================================
-// 5) ควิซทายเดือน (ปุ่มหนีเมาส์) + เปิดเผยตัวนับเวลา
+// 4) ควิซทายเดือน (ปุ่มหนีเมาส์) + เปิดเผยตัวนับเวลา
 // ============================================================
 const monthsQuizContainer = document.getElementById('monthsQuizContainer');
 const monthsQuizResult = document.getElementById('monthsQuizResult');
@@ -122,7 +89,7 @@ if (monthsQuizContainer) {
 }
 
 // ============================================================
-// 6) ระบบนับเวลาคบกัน (Timer)
+// 5) ระบบนับเวลาคบกัน (Timer)
 // ============================================================
 const timerEl = document.getElementById('love-timer');
 if (timerEl) {
@@ -153,7 +120,7 @@ if (timerEl) {
 }
 
 // ============================================================
-// 7) ระบบเกมควิซ "จินรู้ใจหมูแค่ไหน"
+// 6) ระบบเกมควิซ "จินรู้ใจหมูแค่ไหน"
 // ============================================================
 // correctIndex: 'any' หมายถึงตอบข้อไหนก็ถือว่าถูกหมด
 const questions = [
@@ -281,7 +248,7 @@ function showResult() {
 }
 
 // ============================================================
-// 8.5) Tilt hover สำหรับรูปโพลารอยด์ในแกลเลอรี่
+// 7) Tilt hover สำหรับรูปโพลารอยด์ในแกลเลอรี่
 // ============================================================
 const polaroidCards = document.querySelectorAll('.polaroid');
 const hasHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
@@ -313,7 +280,7 @@ if (hasHover && polaroidCards.length) {
 }
 
 // ============================================================
-// 9) การ์ดจดหมาย 3D
+// 8) การ์ดจดหมาย 3D
 // ============================================================
 const letterCard = document.getElementById('letterCard');
 let letterOpened = false;
@@ -345,11 +312,50 @@ function launchHeartConfetti() {
 }
 
 // ============================================================
-// 10) Easter Egg: แมวลับ + บัตรตามใจ
+// 9) Easter Egg: แมวลับ (หนีได้ 10 ครั้ง จากนั้นหยุดนิ่งยอมให้จับ) + บัตรตามใจ
 // ============================================================
 const eggCatBtn = document.getElementById('easter-egg-cat');
 const eggModal = document.getElementById('egg-modal');
 const eggModalClose = document.getElementById('egg-modal-close');
+
+if (eggCatBtn) {
+    let catDodgeCount = 0;
+    const maxDodges = 10;
+    const dodgeTriggerDistance = 70;
+
+    function relocateCat() {
+        const margin = 50;
+        const maxX = window.innerWidth - margin;
+        const maxY = window.innerHeight - margin;
+        const newX = margin + Math.random() * Math.max(maxX - margin, 1);
+        const newY = margin + Math.random() * Math.max(maxY - margin, 1);
+        eggCatBtn.style.left = newX + 'px';
+        eggCatBtn.style.top = newY + 'px';
+        eggCatBtn.style.bottom = 'auto';
+        eggCatBtn.style.right = 'auto';
+    }
+
+    if (hasHover) {
+        document.addEventListener('mousemove', (e) => {
+            if (catDodgeCount >= maxDodges) return;
+            const rect = eggCatBtn.getBoundingClientRect();
+            const centerX = rect.left + rect.width / 2;
+            const centerY = rect.top + rect.height / 2;
+            const dist = Math.hypot(centerX - e.clientX, centerY - e.clientY);
+            if (dist < dodgeTriggerDistance) {
+                relocateCat();
+                catDodgeCount++;
+            }
+        });
+    } else {
+        eggCatBtn.addEventListener('touchstart', (e) => {
+            if (catDodgeCount >= maxDodges) return;
+            e.preventDefault();
+            relocateCat();
+            catDodgeCount++;
+        });
+    }
+}
 
 if (eggCatBtn && eggModal) {
     eggCatBtn.addEventListener('click', () => {
