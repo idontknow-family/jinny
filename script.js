@@ -375,3 +375,32 @@ if (eggModal) {
         if (e.target === eggModal) eggModal.classList.add('hidden-page');
     });
 }
+
+// ============================================================
+// 10) Lightbox: คลิกรูปโพลารอยด์แล้วขยายเต็มจอ
+// ============================================================
+const lightbox = document.getElementById('photo-lightbox');
+const lightboxImg = document.getElementById('lightbox-img');
+const lightboxCaption = document.getElementById('lightbox-caption');
+const lightboxClose = document.getElementById('lightbox-close');
+
+if (lightbox && lightboxImg) {
+    document.querySelectorAll('.polaroid-img').forEach((img) => {
+        img.addEventListener('click', () => {
+            lightboxImg.src = img.src;
+            const captionEl = img.closest('.polaroid')?.querySelector('.polaroid-caption');
+            if (lightboxCaption) lightboxCaption.textContent = captionEl ? captionEl.textContent : '';
+            lightbox.classList.remove('hidden-page');
+        });
+    });
+
+    if (lightboxClose) {
+        lightboxClose.addEventListener('click', () => {
+            lightbox.classList.add('hidden-page');
+        });
+    }
+
+    lightbox.addEventListener('click', (e) => {
+        if (e.target === lightbox) lightbox.classList.add('hidden-page');
+    });
+}
