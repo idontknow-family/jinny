@@ -29,41 +29,6 @@ function spawnBackgroundElement() {
 setInterval(spawnBackgroundElement, 1200); // ช้าลง ไม่รกตา
 
 // ============================================================
-// 3) ปุ่มเปิด/ปิดเพลง (คลอเบาๆ พื้นหลัง)
-// ============================================================
-const musicBtn = document.getElementById('music-toggle');
-const music = document.getElementById('bg-music');
-let isPlaying = false;
-
-function playMusic() {
-    if (!isPlaying && music) {
-        music.volume = 0.12;
-        music.play().then(() => {
-            if (musicBtn) {
-                musicBtn.textContent = '⏸️';
-                musicBtn.classList.add('playing');
-            }
-            isPlaying = true;
-        }).catch(() => { /* เบราว์เซอร์บล็อก autoplay ไว้ก่อนก็ไม่เป็นไร */ });
-    }
-}
-
-if (musicBtn) {
-    musicBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (!isPlaying) {
-            playMusic();
-        } else {
-            music.pause();
-            musicBtn.textContent = '🎵';
-            musicBtn.classList.remove('playing');
-            isPlaying = false;
-        }
-    });
-}
-document.body.addEventListener('click', playMusic, { once: true });
-
-// ============================================================
 // 4) ระบบเปลี่ยนหน้า (Navigation)
 // ============================================================
 function goToPage(hideId, showId) {

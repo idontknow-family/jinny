@@ -138,39 +138,6 @@ body {
   transition: width 0.3s ease;
 }
 
-/* ---------- ปุ่มเพลง ---------- */
-#music-toggle {
-  position: fixed;
-  bottom: 22px;
-  right: 22px;
-  z-index: 998;
-  width: 54px;
-  height: 54px;
-  border-radius: 50%;
-  border: none;
-  background: var(--white);
-  box-shadow: 0 8px 20px rgba(255, 143, 174, 0.35);
-  font-size: 1.3rem;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: transform 0.25s ease;
-}
-
-#music-toggle.playing {
-  animation: pulseSoft 1.6s ease-in-out infinite;
-}
-
-h1,
-h2,
-h3 {
-  font-family: var(--font-display);
-  color: var(--pink-deep);
-  font-weight: 700;
-  text-align: center;
-}
-
 /* ---------- ระบบเปลี่ยนหน้า APP PAGE ---------- */
 .app-page {
   position: absolute;

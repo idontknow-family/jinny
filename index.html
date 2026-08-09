@@ -28,12 +28,6 @@
     </div>
   </div>
 
-  <!-- ปุ่มเปิด/ปิดเพลง มุมขวาล่าง -->
-  <button id="music-toggle" aria-label="เปิด/ปิดเพลง">🎵</button>
-  <audio id="bg-music" loop>
-    <source src="assets/pun.mp3" type="audio/mpeg">
-  </audio>
-
   <!-- ================= 1. หน้าต้อนรับ (ปีศาจหมู) ================= -->
   <section id="page-welcome" class="app-page active">
     <div class="flower-bouquet" style="margin-top: 10vh;">
@@ -157,24 +151,8 @@
         <p class="polaroid-caption">ชอบรูปนี้ถ่ายกับลูกๆด้วยย</p>
       </div>
 
-      <div class="polaroid">
-        <div class="tape"></div><img src="assets/7.png" class="polaroid-img" alt="">
-        <p class="polaroid-caption">[แก้ตรงนี้] รูปที่ 7</p>
-      </div>
-
-      <div class="polaroid">
-        <div class="tape"></div><img src="assets/8.png" class="polaroid-img" alt="">
-        <p class="polaroid-caption">[แก้ตรงนี้] รูปที่ 8</p>
-      </div>
-
-      <div class="polaroid">
-        <div class="tape"></div><img src="assets/9.png" class="polaroid-img" alt="">
-        <p class="polaroid-caption">[แก้ตรงนี้] รูปที่ 9</p>
-      </div>
-    </div>
-
-    <br><br>
-    <button class="back-btn" onclick="goToPage('page-gallery', 'page-menu')">ย้อนกลับ</button>
+      <br><br>
+      <button class="back-btn" onclick="goToPage('page-gallery', 'page-menu')">ย้อนกลับ</button>
   </section>
 
 
@@ -241,11 +219,11 @@
   <div id="egg-modal" class="egg-modal hidden-page">
     <div class="egg-modal-card">
       <img src="assets/meow.png" alt="" class="egg-modal-cat">
-      <h3>เจอยัยเนี๊ยะแล้ว! 🐱✨</h3>
+      <h3>เย้จับยัยเนี๊ยะได้แล้ว! 🐱✨</h3>
       <div class="coupon">
         <div class="coupon-ticket">🎫</div>
         <p class="coupon-title">บัตรตามใจ 1 ใบ</p>
-        <p class="coupon-desc">ขอ/สั่งอะไรเค้าก็ได้ 1 อย่าง<br>ใช้ได้ก่อนวันครบรอบเดือนหน้า<br>(16 ก.ย. 69)</p>
+        <p class="coupon-desc">ขออะไรเค้าก็ได้ 1 อย่าง<br>ใช้ได้ก่อนวันครบรอบเดือนหน้า<br>(16 ก.ย. 69)</p>
       </div>
       <button class="main-btn" id="egg-modal-close" style="margin-top: 20px;">ปิด</button>
     </div>
