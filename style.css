@@ -30,6 +30,16 @@ body {
   overflow-x: hidden;
 }
 
+h1,
+h2,
+h3 {
+  text-align: center;
+  font-family: var(--font-display);
+  /* แนะนำให้ดึงตัวแปรฟอนต์หัวข้อมาใช้ด้วยครับเพื่อความน่ารัก */
+  margin-bottom: 15px;
+  /* เพิ่มระยะห่างด้านล่างเล็กน้อยให้ดูสบายตา */
+}
+
 ::selection {
   background: var(--pink);
   color: var(--white);
