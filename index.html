@@ -28,8 +28,20 @@
     </div>
   </div>
 
+  <!-- ================= 0. หน้ายิงธนูใส่หัวใจ (เล่นก่อนเข้าเว็บ) [ทดลอง ถ้าไม่เวิร์คลบได้] ================= -->
+  <section id="page-archery" class="app-page">
+    <p class="archery-hint">ดึงธนูแล้วปล่อย ยิงหัวใจให้โดนน 🏹</p>
+    <div class="archery-stage" id="archeryStage">
+      <div class="archery-heart" id="archeryHeart">💗</div>
+      <div class="archery-bow">🏹</div>
+      <div class="archery-arrow" id="archeryArrow"></div>
+    </div>
+    <p class="archery-success-text" id="archerySuccessText"></p>
+  </section>
+
+
   <!-- ================= 1. หน้าต้อนรับ (ปีศาจหมู) ================= -->
-  <section id="page-welcome" class="app-page active">
+  <section id="page-welcome" class="app-page hidden-page">
     <div class="flower-bouquet" style="margin-top: 10vh;">
       <!-- ต้องมีไฟล์ assets/pig.png -->
       <img src="assets/pig.png" alt="pig" class="welcome-pig-img">
@@ -150,9 +162,10 @@
         <div class="tape"></div><img src="assets/6.png" class="polaroid-img" alt="">
         <p class="polaroid-caption">ชอบรูปนี้ถ่ายกับลูกๆด้วยย</p>
       </div>
+    </div>
 
-      <br><br>
-      <button class="back-btn" onclick="goToPage('page-gallery', 'page-menu')">ย้อนกลับ</button>
+    <br><br>
+    <button class="back-btn" onclick="goToPage('page-gallery', 'page-menu')">ย้อนกลับ</button>
   </section>
 
 
@@ -196,7 +209,8 @@
         </div>
         <div class="letter-back">
           <p class="letter-title">สุขสันต์วันครบรอบนะค้าบ<br>คนเก่งของเค้าา 🌷💕</p>
-          <p class="letter-body">ถึงมันจะเป็นแค่เดือนแรกแต่เดือนนี้เป็นทั้ง<br>วันครบแรกเดือนแรกของเราและวันเกิดเค้าเลย
+          <p class="letter-body">
+            ถึงมันจะเป็นแค่เดือนแรกแต่เดือนนี้เป็นทั้ง<br>วันครบรอบเดือนแรกของเราและเดือนเกิดเค้าเลย
           </p>
           <p class="letter-body">ขอบคุณที่เข้ามาเติมเต็มในทุกสิ่งที่เค้าขาดหายไป<br>ขอบคุณที่คอยซัพพอร์ตเค้าในทุกๆเรื่อง
           </p>

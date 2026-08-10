@@ -160,6 +160,96 @@ body {
   opacity: 0;
 }
 
+/* ---------- หน้ายิงธนูใส่หัวใจ ---------- */
+.archery-hint {
+  font-family: var(--font-hand);
+  color: var(--text-soft);
+  margin-top: 10vh;
+  margin-bottom: 30px;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.archery-stage {
+  position: relative;
+  width: min(320px, 85vw);
+  height: 420px;
+  margin: 0 auto;
+  touch-action: none;
+}
+
+.archery-heart {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 3.2rem;
+  animation: pulseSoft 1.6s ease-in-out infinite;
+}
+
+.archery-heart.hit {
+  animation: heartPop 0.6s ease forwards;
+}
+
+@keyframes heartPop {
+  0% {
+    transform: translateX(-50%) scale(1);
+  }
+
+  40% {
+    transform: translateX(-50%) scale(1.7);
+  }
+
+  100% {
+    transform: translateX(-50%) scale(0);
+    opacity: 0;
+  }
+}
+
+.archery-bow {
+  position: absolute;
+  bottom: 24px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 2.2rem;
+  pointer-events: none;
+}
+
+.archery-arrow {
+  position: absolute;
+  left: 50%;
+  bottom: 46px;
+  width: 24px;
+  height: 24px;
+  margin-left: -12px;
+  border-radius: 50%;
+  background: var(--pink-deep);
+  box-shadow: 0 6px 14px rgba(255, 143, 174, 0.55);
+  cursor: grab;
+  touch-action: none;
+}
+
+.archery-arrow.dragging {
+  cursor: grabbing;
+}
+
+.archery-arrow.shooting {
+  transition: left 0.4s cubic-bezier(.3, .7, .2, 1), bottom 0.4s cubic-bezier(.3, .7, .2, 1);
+}
+
+.archery-arrow.springback {
+  transition: left 0.25s ease-out, bottom 0.25s ease-out;
+}
+
+.archery-success-text {
+  text-align: center;
+  margin-top: 18px;
+  font-family: var(--font-display);
+  color: var(--pink-deep);
+  font-size: 1.15rem;
+  min-height: 1.6em;
+}
+
 /* ---------- หมูหน้าต้อนรับ ---------- */
 .welcome-pig-img {
   width: min(200px, 50vw);
@@ -450,6 +540,7 @@ body {
   object-fit: cover;
   border-radius: 3px;
   background: var(--cream-deep);
+  cursor: pointer;
 }
 
 .polaroid-caption {
@@ -642,10 +733,6 @@ body {
 }
 
 /* ---------- Lightbox: ขยายรูปเต็มจอ ---------- */
-.polaroid-img {
-  cursor: pointer;
-}
-
 .photo-lightbox {
   position: fixed;
   inset: 0;

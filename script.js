@@ -20,16 +20,16 @@ function spawnBackgroundElement() {
     el.className = 'floating-heart';
     el.textContent = bgEmojis[Math.floor(Math.random() * bgEmojis.length)];
     el.style.left = Math.random() * 90 + 5 + '%';
-    el.style.fontSize = (14 + Math.random() * 10) + 'px'; // เล็กลง จางลง
+    el.style.fontSize = (14 + Math.random() * 10) + 'px';
     const duration = 8 + Math.random() * 5;
     el.style.animationDuration = duration + 's';
     heartBg.appendChild(el);
     setTimeout(() => el.remove(), duration * 1000);
 }
-setInterval(spawnBackgroundElement, 1200); // ช้าลง ไม่รกตา
+setInterval(spawnBackgroundElement, 1200);
 
 // ============================================================
-// 4) ระบบเปลี่ยนหน้า (Navigation)
+// 3) ระบบเปลี่ยนหน้า (Navigation)
 // ============================================================
 function goToPage(hideId, showId) {
     const hideEl = document.getElementById(hideId);
@@ -40,7 +40,107 @@ function goToPage(hideId, showId) {
 }
 
 // ============================================================
-// 4) ควิซทายเดือน (ปุ่มหนีเมาส์) + เปิดเผยตัวนับเวลา
+// 4) หน้ายิงธนูใส่หัวใจ (เล่นก่อนเข้าหน้าปีศาจหมู) [ทดลอง]
+//    ลากลูกธนู (จุดสีชมพู) แล้วปล่อย ถ้าดึงพอ = ยิงติดหัวใจเสมอ
+//    ถ้าดึงไม่พอ ลูกธนูจะดีดกลับที่เดิม
+// ============================================================
+const archeryStage = document.getElementById('archeryStage');
+const archeryArrow = document.getElementById('archeryArrow');
+const archeryHeart = document.getElementById('archeryHeart');
+const archerySuccessText = document.getElementById('archerySuccessText');
+
+if (archeryStage && archeryArrow && archeryHeart) {
+    const REST_BOTTOM = 46; // px จากขอบล่าง stage ตอนพัก
+    const PULL_THRESHOLD = 35; // px ต้องลากอย่างน้อยเท่านี้ถึงจะยิงติด
+    let dragging = false;
+    let pointerId = null;
+    let startX = 0, startY = 0;
+    let pulledX = 0, pulledY = 0;
+    let archeryDone = false;
+
+    function setArrowPos(leftPx, bottomPx) {
+        archeryArrow.style.left = leftPx + 'px';
+        archeryArrow.style.bottom = bottomPx + 'px';
+    }
+
+    function resetArrow() {
+        archeryArrow.classList.remove('shooting');
+        const rect = archeryStage.getBoundingClientRect();
+        setArrowPos(rect.width / 2, REST_BOTTOM);
+    }
+    setTimeout(resetArrow, 50);
+
+    function pointerDown(e) {
+        if (archeryDone) return;
+        dragging = true;
+        pointerId = e.pointerId;
+        archeryArrow.classList.remove('springback');
+        archeryArrow.classList.add('dragging');
+        startX = e.clientX;
+        startY = e.clientY;
+        archeryArrow.setPointerCapture(e.pointerId);
+    }
+
+    function pointerMove(e) {
+        if (!dragging) return;
+        const rect = archeryStage.getBoundingClientRect();
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+        const maxPull = 90;
+        const clampedDx = Math.max(-maxPull, Math.min(maxPull, dx));
+        const clampedDy = Math.max(-20, Math.min(maxPull, dy));
+        pulledX = clampedDx;
+        pulledY = clampedDy;
+        const baseLeft = rect.width / 2;
+        setArrowPos(baseLeft + clampedDx, REST_BOTTOM - clampedDy);
+    }
+
+    function pointerUp(e) {
+        if (!dragging) return;
+        dragging = false;
+        archeryArrow.classList.remove('dragging');
+
+        const pullDist = Math.hypot(pulledX, pulledY);
+
+        if (pullDist < PULL_THRESHOLD) {
+            archeryArrow.classList.add('springback');
+            resetArrow();
+            pulledX = 0; pulledY = 0;
+            return;
+        }
+
+        // ยิง! เลื่อนลูกธนูไปที่ตำแหน่งหัวใจ
+        archeryDone = true;
+        const stageRect = archeryStage.getBoundingClientRect();
+        const heartRect = archeryHeart.getBoundingClientRect();
+        const targetLeft = heartRect.left - stageRect.left + heartRect.width / 2;
+        const targetTopFromStage = heartRect.top - stageRect.top + heartRect.height / 2;
+        const targetBottom = stageRect.height - targetTopFromStage;
+
+        archeryArrow.classList.remove('springback');
+        archeryArrow.classList.add('shooting');
+        setArrowPos(targetLeft, targetBottom);
+        pulledX = 0; pulledY = 0;
+
+        setTimeout(() => {
+            archeryHeart.classList.add('hit');
+            launchHeartConfetti();
+            if (archerySuccessText) archerySuccessText.textContent = 'โดนแล้ว!! 💥';
+        }, 380);
+
+        setTimeout(() => {
+            goToPage('page-archery', 'page-welcome');
+        }, 1300);
+    }
+
+    archeryArrow.addEventListener('pointerdown', pointerDown);
+    archeryArrow.addEventListener('pointermove', pointerMove);
+    archeryArrow.addEventListener('pointerup', pointerUp);
+    archeryArrow.addEventListener('pointercancel', pointerUp);
+}
+
+// ============================================================
+// 5) ควิซทายเดือน (ปุ่มหนีเมาส์) + เปิดเผยตัวนับเวลา
 // ============================================================
 const monthsQuizContainer = document.getElementById('monthsQuizContainer');
 const monthsQuizResult = document.getElementById('monthsQuizResult');
@@ -89,7 +189,7 @@ if (monthsQuizContainer) {
 }
 
 // ============================================================
-// 5) ระบบนับเวลาคบกัน (Timer)
+// 6) ระบบนับเวลาคบกัน (Timer)
 // ============================================================
 const timerEl = document.getElementById('love-timer');
 if (timerEl) {
@@ -120,9 +220,8 @@ if (timerEl) {
 }
 
 // ============================================================
-// 6) ระบบเกมควิซ "จินรู้ใจหมูแค่ไหน"
+// 7) ระบบเกมควิซ "จินรู้ใจหมูแค่ไหน"
 // ============================================================
-// correctIndex: 'any' หมายถึงตอบข้อไหนก็ถือว่าถูกหมด
 const questions = [
     {
         question: "1. ให้ทายวันนี้เค้าถืออะไรในมือ",
@@ -248,13 +347,13 @@ function showResult() {
 }
 
 // ============================================================
-// 7) Tilt hover สำหรับรูปโพลารอยด์ในแกลเลอรี่
+// 8) Tilt hover สำหรับรูปโพลารอยด์ในแกลเลอรี่
 // ============================================================
 const polaroidCards = document.querySelectorAll('.polaroid');
 const hasHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
 if (hasHover && polaroidCards.length) {
-    const maxTilt = 12; // องศาที่เอียงได้มากสุด
+    const maxTilt = 12;
 
     polaroidCards.forEach((card) => {
         card.addEventListener('mousemove', (e) => {
@@ -280,7 +379,7 @@ if (hasHover && polaroidCards.length) {
 }
 
 // ============================================================
-// 8) การ์ดจดหมาย 3D
+// 9) การ์ดจดหมาย 3D
 // ============================================================
 const letterCard = document.getElementById('letterCard');
 let letterOpened = false;
@@ -296,7 +395,7 @@ if (letterCard) {
 }
 
 // ============================================================
-// confetti หัวใจ (ใช้ร่วมกันทั้งควิซและจดหมาย)
+// confetti หัวใจ (ใช้ร่วมกันหลายจุด)
 // ============================================================
 function launchHeartConfetti() {
     const emojis = ['💗', '💝', '💕', '✨'];
@@ -312,7 +411,7 @@ function launchHeartConfetti() {
 }
 
 // ============================================================
-// 9) Easter Egg: แมวลับ (หนีได้ 10 ครั้ง จากนั้นหยุดนิ่งยอมให้จับ) + บัตรตามใจ
+// 10) Easter Egg: แมวลับ (หนีได้ 10 ครั้ง จากนั้นหยุดนิ่งยอมให้จับ) + บัตรตามใจ
 // ============================================================
 const eggCatBtn = document.getElementById('easter-egg-cat');
 const eggModal = document.getElementById('egg-modal');
@@ -377,7 +476,7 @@ if (eggModal) {
 }
 
 // ============================================================
-// 10) Lightbox: คลิกรูปโพลารอยด์แล้วขยายเต็มจอ
+// 11) Lightbox: คลิกรูปโพลารอยด์แล้วขยายเต็มจอ
 // ============================================================
 const lightbox = document.getElementById('photo-lightbox');
 const lightboxImg = document.getElementById('lightbox-img');
