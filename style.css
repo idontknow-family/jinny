@@ -30,16 +30,6 @@ body {
   overflow-x: hidden;
 }
 
-h1,
-h2,
-h3 {
-  text-align: center;
-  font-family: var(--font-display);
-  /* แนะนำให้ดึงตัวแปรฟอนต์หัวข้อมาใช้ด้วยครับเพื่อความน่ารัก */
-  margin-bottom: 15px;
-  /* เพิ่มระยะห่างด้านล่างเล็กน้อยให้ดูสบายตา */
-}
-
 ::selection {
   background: var(--pink);
   color: var(--white);
@@ -149,6 +139,15 @@ h3 {
 }
 
 /* ---------- ระบบเปลี่ยนหน้า APP PAGE ---------- */
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  color: var(--pink-deep);
+  font-weight: 700;
+  text-align: center;
+}
+
 .app-page {
   position: absolute;
   top: 0;
@@ -221,6 +220,7 @@ h3 {
   bottom: 24px;
   left: 50%;
   transform: translateX(-50%);
+  margin-left: -8px;
   font-size: 2.2rem;
   pointer-events: none;
 }

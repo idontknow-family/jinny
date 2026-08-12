@@ -53,7 +53,6 @@ if (archeryStage && archeryArrow && archeryHeart) {
     const REST_BOTTOM = 46; // px จากขอบล่าง stage ตอนพัก
     const PULL_THRESHOLD = 35; // px ต้องลากอย่างน้อยเท่านี้ถึงจะยิงติด
     let dragging = false;
-    let pointerId = null;
     let startX = 0, startY = 0;
     let pulledX = 0, pulledY = 0;
     let archeryDone = false;
@@ -73,7 +72,6 @@ if (archeryStage && archeryArrow && archeryHeart) {
     function pointerDown(e) {
         if (archeryDone) return;
         dragging = true;
-        pointerId = e.pointerId;
         archeryArrow.classList.remove('springback');
         archeryArrow.classList.add('dragging');
         startX = e.clientX;
